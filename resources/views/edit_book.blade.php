@@ -9,8 +9,12 @@
         <div class="row">
 
         <strong>All fields are required except Cover Image<br>
-		NB! No Special characters should be used in any part of this form.</strong><br>
-
+		NB! No Special characters should be used in any part of this form.</strong>
+        <span class="bk-info">
+            <button onclick="javascript:history.go(-1)" class="d-inline float-end">
+                Go Back
+            </button>
+        </span>
         <form action="{{ route('store.book')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="row">
