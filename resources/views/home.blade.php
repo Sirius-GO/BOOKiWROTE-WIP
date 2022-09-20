@@ -2,6 +2,9 @@
 <?php
 session()->put('uri', $_SERVER['REQUEST_URI']);
 ?>
+@section('banner')
+
+@endsection 
 
 @section('content')
 <div class="row justify-content-center">
@@ -88,7 +91,18 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
     Clear the search or search for an alternative keyword or phrase</p>
     <strong>TIP! Single words or parts of words will render more results</strong>
 @endif
+
+<script>
+$(document).ready(function(){
+   $(".active").removeClass("active");
+   $("#home").addClass("active");
+});
+</script>
 @endsection
+
+
+
+
 @section('sidebar')
 <div class="col-md-12">
     <div class="card">
@@ -100,6 +114,20 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
             @else 
                 <a href="/login" class="btn btn-outline-success my-2 my-sm-0 d-flex justify-content-center">Please log in to access admin functions</a>
             @endif
+        </div>  
+    </div>
+</div>
+<br>
+<div class="col-md-12">
+    <div class="card">
+    <div class="card-header">{{ __('Latest News from BOOKiWROTE') }}</div>
+        <div class="card-body">
+            <h2>
+                Contribute to our next anthology - 
+                <button class="btn btn-outline-success my-2 my-sm-0 m-2">
+                    find out more!
+                </button>
+            </h2>
         </div>  
     </div>
 </div>
@@ -126,3 +154,4 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
 @endforeach
 
 @endsection
+

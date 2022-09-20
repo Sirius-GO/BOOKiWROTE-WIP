@@ -40,6 +40,14 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
 </div>
 @endforeach
 </div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+$(document).ready(function(){
+   $(".active").removeClass("active");
+   $("#stories").addClass("active");
+});
+</script>
 @endsection
 
 

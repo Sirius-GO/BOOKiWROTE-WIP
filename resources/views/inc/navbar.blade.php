@@ -11,19 +11,19 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/"> Home </a>
+                    <a class="nav-link active" id="home" href="/"> Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/authors"> Authors </a>
+                    <a class="nav-link" id="authors" href="/authors"> Authors </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/narrators"> Narrators </a>
+                    <a class="nav-link" id="narrators" href="/narrators"> Narrators </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/shortstories"> Stories </a>
+                    <a class="nav-link" id="stories" href="/shortstories"> Stories </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/articles"> Articles </a>
+                    <a class="nav-link" id="articles" href="/articles"> Articles </a>
                 </li>
             </ul>
 
@@ -33,13 +33,13 @@
                 @guest
                     @if (Route::has('login'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" id="login" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                     @endif
 
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link" id="register" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @endif
                 @else
@@ -48,7 +48,9 @@
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/admin"> Admin  </a>
+
+                            <a class="dropdown-item" id="admin" href="/admin"> Admin  </a>
+
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
 
@@ -74,4 +74,33 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+$(document).ready(function(){
+   $(".active").removeClass("active");
+   $("#register").addClass("active");
+});
+</script>
 @endsection
+
+@section('sidebar')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">{{ __('Menu') }}</div>
+                <div class="card-body">
+                    <a href="/home" class="m-4">Home</a>
+                    <a href="/authors" class="m-4">Authors</a>
+                    <a href="/narrators" class="m-4">Narrators</a>
+                    <a href="/shortstories" class="m-4">Stories</a>
+                    <a href="/articles" class="m-4">Articles</a>
+                    <a href="/login" class="m-4">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+

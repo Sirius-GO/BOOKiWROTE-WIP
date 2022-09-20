@@ -26,6 +26,9 @@
         
         <main class="container py-4">
             <div class="row justify-content-left">
+                <div class="col-xs-12">
+                    @yield('banner')
+            </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-8 mt-4">
                     @yield('content')
                 </div>

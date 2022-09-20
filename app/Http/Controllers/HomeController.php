@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'book_details']);
+        $this->middleware('auth')->except(['index', 'book_details', 'stories']);
     }
 
     /**
@@ -40,7 +40,7 @@ class HomeController extends Controller
             ->where(DB::Raw('lower(title)'), 'like', '%' . strtolower($sb) . '%')
             ->orwhere(DB::Raw('lower(genre)'), 'like', '%' . strtolower($sb) . '%')
             ->orwhere(DB::Raw('lower(pen_name)'), 'like', '%' . strtolower($sb) . '%')
-            ->orderby('books.id', 'desc')
+            ->orderby('books.id', 'asc')
             ->paginate(100);
         } else {
             $books = Book::leftjoin('authors', 'book_author_id' , '=', 'author_id')
