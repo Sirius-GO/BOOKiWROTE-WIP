@@ -560,4 +560,33 @@ li.page-item {
 	height: 100%;
   }
 
+  div .article * {
+	font-size: unset;
+	font-size: 20px;
+  }
+  div .article {
+	white-space: pre-wrap;
+	/* text-align: left; */
+	height: 600px;
+	width: 100%;
+	overflow-y: scroll;
+	border: solid #ddd 1px;
+	padding: 10px;
+  }
+
+  .article img {
+	max-width: 100%;
+  }
+
+  .storylink {
+	color: #000;
+	text-decoration: none;
+  }
+
+.card-top {
+	background: linear-gradient(to bottom right, #ccc, #333);
+	padding: 20px;
+	color: #fff;
+}
+
 

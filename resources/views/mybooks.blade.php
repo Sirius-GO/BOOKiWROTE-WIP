@@ -17,7 +17,11 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
                         <div class="bk-cover-back"></div>
                             <div class="bk-cover">
                                 <a href="/book_details/{{$book->id}}">
-                                    <img src="{{asset($book->c_image)}}" class="booksize">
+                                    @if($book->deleted_at === NULL)
+                                        <img src="{{asset($book->c_image)}}" class="booksize">
+                                    @else 
+                                        <img src="{{asset($book->c_image)}}" class="booksize" style="filter: grayscale(1);">
+                                    @endif
                                 </a>
                             </div> 
                         </div>
@@ -32,14 +36,19 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
                         <div class="bk-bottom"></div>
                     </div>
                     <div class="bk-info d-flex justify-content-evenly">
-                        <a href="{{route('edit.book', $book->id)}}" class="btn btn-success btn-sm">Edit</a>
-                        <a href="/book_details/{{$book->id}}" class="btn btn-info btn-sm" >View</a>
+                        @if($book->deleted_at === NULL)
+                            <a href="{{route('edit.book', $book->id)}}" class="btn btn-success btn-sm">Edit</a>
+                            <a href="/book_details/{{$book->id}}" class="btn btn-info btn-sm" >View</a>
+                        @endif
+                        @if($book->deleted_at === NULL)
                         <form method="POST" action="{{route('delete.book', $book->id)}}">
                             @csrf 
                             @method('delete')
                             <input type="submit" name="submit" value="Delete" class="btn btn-danger btn-sm">
                         </form>
-                        
+                        @else 
+                           <a href="{{route('book.undelete', $book->id)}}" class="btn btn-warning btn-sm">Restore</a>
+                        @endif 
                     </div>
                     <br>
                 </li>

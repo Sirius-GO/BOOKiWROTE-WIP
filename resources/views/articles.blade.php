@@ -2,9 +2,6 @@
 <?php
 session()->put('uri', $_SERVER['REQUEST_URI']);
 ?>
-@section('banner')
-
-@endsection 
 
 @section('content')
 <div class="row justify-content-center">
@@ -23,7 +20,59 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
     </div>
 </div>
 <br>
-<div><h3>Book Listings</h3></div>
+<div><h3>Self-Help Articles</h3></div>
+
+<div class="row">
+@foreach($articles as $art)
+<div class="col-md-6">
+<div class="card mt-4">
+        <div class="card-body" style="min-height: 180px;">
+            <h3><a href="/article/{{$art->id}}" class="storylink" title="View {{$art->title}}">{{$art->title}}</a></h3>
+        </div>
+        <div class="card-footer">
+            Added: {{$art->created_at->diffForHumans()}}<br>
+            by {{$art->users->name}}
+        </div>
+    </div>
+</div>
+@endforeach
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+$(document).ready(function(){
+   $(".active").removeClass("active");
+   $("#articles").addClass("active");
+});
+</script>
+@endsection
+
+
+@section('sidebar')
+<div class="col-md-12">
+    <div class="card">
+    <div class="card-header">{{ __('Administration Panel') }}</div>
+        <div class="card-body">
+            <!-- <a href="/api/bookresponse" class="btn btn-primary"> Developer API JSON Reponse </a> -->
+            @if(Auth::check())
+                <a href="/admin" class="btn btn-outline-success my-2 my-sm-0">  Open Administration Panel </a>
+            @else 
+                <a href="/login" class="btn btn-outline-success my-2 my-sm-0">Please log in to access admin functions</a>
+            @endif
+        </div>  
+    </div>
+</div>
+<br>
+<div class="col-md-12">
+    <div class="card">
+    <div class="card-header">{{ __('Books') }}</div>
+        <div class="card-body">
+            <a href="/home" class="btn btn-outline-success my-2 my-sm-0">  View All Books </a>
+        </div>  
+    </div>
+</div>
+<br>
+<div><h3>Books Selection</h3></div>
 <br>
 @if(count($books)>0)
 <div>
@@ -92,68 +141,4 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
     <strong>TIP! Single words or parts of words will render more results</strong>
 @endif
 
-<script>
-$(document).ready(function(){
-   $(".active").removeClass("active");
-   $("#home").addClass("active");
-});
-</script>
 @endsection
-
-
-
-
-@section('sidebar')
-<div class="col-md-12">
-    <div class="card">
-    <div class="card-header">{{ __('Administration Panel') }}</div>
-        <div class="card-body">
-            <!-- <a href="/api/bookresponse" class="btn btn-primary"> Developer API JSON Reponse </a> -->
-            @if(Auth::check())
-                <a href="/admin" class="btn btn-outline-success my-2 my-sm-0 d-flex justify-content-center">  Open Administration Panel </a>
-            @else 
-                <a href="/login" class="btn btn-outline-success my-2 my-sm-0 d-flex justify-content-center">Please log in to access admin functions</a>
-            @endif
-        </div>  
-    </div>
-</div>
-<br>
-<div class="col-md-12">
-    <div class="card">
-    <div class="card-header">{{ __('Latest News from BOOKiWROTE') }}</div>
-        <div class="card-body">
-            <h2>
-                Contribute to our next anthology - 
-                <button class="btn btn-outline-success my-2 my-sm-0 m-2">
-                    find out more!
-                </button>
-            </h2>
-        </div>  
-    </div>
-</div>
-<br>
-<div><h3>Short Stories Selection</h3></div>
-<div class="card mt-4">
-    <div class="card-body">
-        <h3><a href="{{route('stories')}}" class="btn btn-outline-success my-2 my-sm-0 d-flex justify-content-center">View all Short Stories & Poems</a></h3>
-    </div>
-</div>
-@foreach($stories as $story)
-<div class="card mt-4">
-        <div class="card-img-top">
-        <a href="/stories/{{$story->id}}" class="storylink" title="View {{$story->title}}">
-            <img src="{{asset('stories/'.$story->img)}}" class="top_img" height="250px"/>
-        </a>
-        </div>
-        <div class="card-body">
-            <h3><a href="/stories/{{$story->id}}" class="storylink" title="View {{$story->title}}">{{$story->title}}</a></h3>
-        </div>
-        <div class="card-footer">
-            Added: {{$story->created_at->diffForHumans()}}<br>
-            by {{$story->users->name}}
-        </div>
-    </div>
-@endforeach
-
-@endsection
-

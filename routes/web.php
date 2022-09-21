@@ -25,15 +25,20 @@ Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->nam
 Route::get('/book_details/{id}', [App\Http\Controllers\HomeController::class, 'book_details']);
 Route::get('/stories/{id}', [App\Http\Controllers\HomeController::class, 'story'])->name('story');
 Route::get('/shortstories', [App\Http\Controllers\HomeController::class, 'stories'])->name('stories');
+Route::get('/article/{id}', [App\Http\Controllers\HomeController::class, 'article'])->name('article');
+Route::get('/articles', [App\Http\Controllers\HomeController::class, 'articles'])->name('articles');
 
-//BOOK CRUD ROUTES
+
+//BOOK ADMIN CRUD ROUTES
 Route::get('/admin/mybooks', [App\Http\Controllers\HomeController::class, 'my_books'])->name('my.books');
 Route::get('/admin/addbook', [App\Http\Controllers\HomeController::class, 'show_add_book'])->name('show.add.book');
 Route::post('/admin/addbook', [App\Http\Controllers\HomeController::class, 'add_book'])->name('add.book');
 Route::get('/admin/editbook/{id}', [App\Http\Controllers\HomeController::class, 'edit_book'])->name('edit.book');
 Route::post('/admin/storebook', [App\Http\Controllers\HomeController::class, 'store_book'])->name('store.book');
 Route::delete('/admin/deletebook/{id}', [App\Http\Controllers\HomeController::class, 'book_destroy'])->name('delete.book');
+Route::get('/admin/undeletebook/{id}', [App\Http\Controllers\HomeController::class, 'book_undestroy'])->name('book.undelete');
 
+//STORIES AND ARTICLES ADMIN ROUTES
 Route::get('/admin/mystories', [App\Http\Controllers\HomeController::class, 'my_stories'])->name('my.stories');
 Route::get('/admin/myarticles', [App\Http\Controllers\HomeController::class, 'my_articles'])->name('my.articles');
 

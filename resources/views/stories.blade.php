@@ -27,14 +27,16 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
 <div class="col-md-6">
 <div class="card mt-4">
         <div class="card-img-top">
-            <img src="{{asset('stories/'.$story->img)}}" class="top_img" height="250px" />
+        <a href="/stories/{{$story->id}}" class="storylink" title="View {{$story->title}}">
+            <img src="{{asset('stories/'.$story->img)}}" class="top_img" height="250px"/>
+        </a>
         </div>
         <div class="card-body">
-            <h3>{{$story->title}}</h3>
-            <!-- Description:<br>{{$story->content}} -->
+            <h3><a href="/stories/{{$story->id}}" class="storylink" title="View {{$story->title}}">{{$story->title}}</a></h3>
         </div>
         <div class="card-footer">
             Added: {{$story->created_at->diffForHumans()}}<br>
+            by {{$story->users->name}}
         </div>
     </div>
 </div>

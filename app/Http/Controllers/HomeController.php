@@ -47,8 +47,7 @@ class HomeController extends Controller
             ->orderby('books.id', 'desc')
             ->paginate(12);            
         }
-        $stories = Stories::limit(12)->get();
-
+        $stories = Stories::inRandomOrder()->with('users')->limit(12)->get();
 
             return view('home')->with('books', $books)->with('stories', $stories);
     }
@@ -98,7 +97,7 @@ class HomeController extends Controller
 
     public function my_books() {
         $id  = auth()->user()->id;
-        $my_books = Book::where('user_id', $id)->get();
+        $my_books = Book::withTrashed()->where('user_id', $id)->get();
         
         return view('mybooks')->with('my_books', $my_books);  
     }
@@ -287,10 +286,16 @@ class HomeController extends Controller
         return back()->with('error', 'Book Deleted');
     }
 
+    public function book_undestroy($id){
+        $book = Book::withTrashed()->find($id);
+        $book->restore();
+        return back()->with('success', 'Book Successfully Restored');
+    }
+
     public function story($id) {
-        $stories = Stories::where('id', $id)->get();
-        
-        return view('stories')->with('stories', $stories);  
+        $stories = Stories::with('users')->where('id', $id)->get();
+        $articles = Articles::inRandomOrder()->limit(4)->get();
+        return view('story')->with('stories', $stories)->with('articles', $articles);   
     }
 
     public function stories() {
@@ -299,6 +304,23 @@ class HomeController extends Controller
         return view('stories')->with('stories', $stories)->with('articles', $articles);  
     }
 
+    public function article($id) {
+        $articles = Articles::with('users')->where('id', $id)->get();
+        $books = Book::leftjoin('authors', 'book_author_id' , '=', 'author_id')
+        ->inRandomOrder()
+        ->orderby('books.id', 'desc')
+        ->paginate(1);  
+        return view('article')->with('articles', $articles)->with('books', $books);   
+    }
+
+    public function articles() {
+        $articles = Articles::get();
+        $books = Book::leftjoin('authors', 'book_author_id' , '=', 'author_id')
+        ->inRandomOrder()
+        ->orderby('books.id', 'desc')
+        ->paginate(3); 
+        return view('articles')->with('articles', $articles)->with('books', $books);  
+    }
 
 
 
