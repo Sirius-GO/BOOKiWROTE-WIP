@@ -30,7 +30,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
 <div class="container">	
 {{ $books->withQueryString()->onEachSide(0)->links("pagination::bootstrap-5") }}
     <div class="main">
-        <ul id="bk-list" class="row bk-list clearfix justify-content-center">
+        <ul id="bk-list" class="bk-list clearfix justify-content-center">
             @foreach($books as $book)
                 <li class="box col-sm-12 col-md-6">
                     <!-- {{$book->id}}<br> -->
