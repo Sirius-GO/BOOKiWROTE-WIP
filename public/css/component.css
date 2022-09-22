@@ -402,9 +402,10 @@
 }
 
 .box3{
-	padding: 20px;
+	padding-top: 10px;
 	width: relative;
-	height: 330px;
+	max-width: 100px;
+	height: 280px;
 	border: solid 1px #ddd;
 	background: #fff;
 	text-align: center;

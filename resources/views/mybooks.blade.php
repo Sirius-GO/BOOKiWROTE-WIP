@@ -5,10 +5,9 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
 @section('content')
 
 <h1 class="m-4">My Books</h1>
-<div class="container">
     <ul class="bk-list justify-content-center">
         @foreach($my_books as $book)
-            <li class="box3">
+            <li class="box3 col-sm-12 col-md-4 col-lg-3" style="margin-left: -15px;">
                 <a href="/book_details/{{$book->id}}">
                     @if($book->deleted_at === NULL)
                         <img src="{{asset($book->c_image)}}" class="booksize3">
@@ -35,6 +34,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
             </li>
         @endforeach
     </ul>
+</div>
 </div>
 @endsection
 
