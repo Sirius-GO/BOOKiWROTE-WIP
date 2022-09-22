@@ -6,6 +6,7 @@
 .bk-list li {
 	position: relative;
 	width: 350px;
+	max-width: 100%;
 	float: left;
 	z-index: 1;
 	margin: 0px 35px 20px 0;
@@ -19,7 +20,7 @@
 
 .bk-info {
 	position: relative;
-	margin-top: 440px;
+	margin-top: 350px;
 }
 
 .bk-info h3 {
@@ -72,8 +73,8 @@
 
 .bk-list li .bk-book {
 	position: absolute;
-	width: 300px;
-	height: 400px;
+	width: 250px;
+	height: 333px;
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 	-webkit-transition: -webkit-transform .5s;
@@ -115,8 +116,8 @@
 	-webkit-transform: translate3d(0,0,19px);
 	transform: translate3d(0,0,19px);
 	display: none;
-	width: 295px;
-	height: 390px;
+	width: 246px;
+	height: 325px;
 	top: 5px;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
@@ -126,8 +127,8 @@
 .bk-list li .bk-front,
 .bk-list li .bk-back,
 .bk-list li .bk-front > div {
-	width: 300px;
-	height: 400px;
+	width: 250px;
+	height: 333px;
 }
 
 .bk-list li .bk-left,
@@ -138,7 +139,7 @@
 
 .bk-list li .bk-top,
 .bk-list li .bk-bottom {
-	width: 295px;
+	width: 246px;
 	height: 40px;
 	top: -15px;
 	-webkit-backface-visibility: hidden;
@@ -159,7 +160,7 @@
 }
 
 .bk-list li .bk-right {
-	height: 390px;
+	height: 325px;
 	top: 5px;
 	-webkit-transform: rotate3d(0,1,0,90deg) translate3d(0,0,295px);
 	-moz-transform: rotate3d(0,1,0,90deg) translate3d(0,0,295px);
@@ -169,7 +170,7 @@
 }
 
 .bk-list li .bk-left {
-	height: 400px;
+	height: 333px;
 	-webkit-transform: rotate3d(0,1,0,-90deg);
 	transform: rotate3d(0,1,0,-90deg);
 }
@@ -243,7 +244,7 @@
 }
 
 .bk-left h2 {
-	width: 400px;
+	width: 333px;
 	height: 40px;
 	-webkit-transform-origin: 0 0;
 	-moz-transform-origin: 0 0;
@@ -384,7 +385,7 @@
 
 .box{
 	padding: 20px;
-	min-width: 350px;
+	min-width: 335px;
 	height: 950px;
 	border: solid 1px #ddd;
 	background: #fff;
@@ -392,10 +393,21 @@
 
 .box2{
 	padding: 20px;
-	min-width: 350px;
-	height: 500px;
+	width: 350px;
+	max-width: 100%;
+	/* height: 500px; */
+	height: relative;
 	border: solid 1px #ddd;
 	background: #fff;
+}
+
+.box3{
+	padding: 20px;
+	width: relative;
+	height: 330px;
+	border: solid 1px #ddd;
+	background: #fff;
+	text-align: center;
 }
 
 .top_img{
@@ -404,8 +416,8 @@
 }
 @media screen and (min-width: 1400px) {
 	.booksize2{
-		width: 300px;
-		height: 400px;
+		width: 250px;
+		height: 333px;
 	}
 }
 @media screen and (min-width: 769px) and (max-width: 1399px){
@@ -416,14 +428,19 @@
 }
 @media screen and (min-width: 0px) and (max-width: 768px){
 	.booksize2{
-		width: 300px;
-		height: 400px;
+		width: 250px;
+		height: 333px;
 	}
 }
 
 .booksize{
-	width: 300px;
-	height: 400px;
+	width: 250px;
+	height: 333px;
+}
+
+.booksize3{
+	width: 150px;
+	height: 200px;
 }
 
 .price {

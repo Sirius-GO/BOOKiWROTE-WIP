@@ -375,7 +375,7 @@ $uri = session()->get('uri');
         <ul id="bk-list" class="bk-list clearfix justify-content-center">
             @foreach($other_books as $book)
                 <li style="margin-bottom: -5px;">
-                    <div class="bk-book book-1 bk-bookdefault">
+                <div class="bk-book book-1 bk-bookdefault">
                             <div class="bk-front">
                             <div class="bk-cover-back"></div>
                                 <div class="bk-cover">
@@ -396,7 +396,7 @@ $uri = session()->get('uri');
                     </div>
                     <div class="bk-info">
                         <h3>
-                            <span style="margin-top: -50px;"><b class="price">from {{$book->pformat}}{{$book->price}}</b></span>
+                            <span style="margin-top: -35px;"><b class="price">from {{$book->pformat}}{{$book->price}}</b></span>
                             <span>{{$book->title}}</span>
                         </h3>
                     </div>

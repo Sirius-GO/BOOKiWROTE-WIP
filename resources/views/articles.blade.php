@@ -79,11 +79,11 @@ $(document).ready(function(){
 <div class="container">	
 {{ $books->withQueryString()->onEachSide(0)->links("pagination::bootstrap-5") }}
     <div class="main">
-        <ul id="bk-list" class="bk-list clearfix justify-content-center">
+        <ul id="bk-list" class="row bk-list clearfix justify-content-center">
             @foreach($books as $book)
-                <li class="box">
+                <li class="box col-sm-12 col-md-6">
                     <!-- {{$book->id}}<br> -->
-                    <div class="bk-book book-1 bk-bookdefault">
+                    <div class="bk-book book-1 bk-bookdefault" style="margin-left: 30px;">
                         
                             <div class="bk-front">
                             <div class="bk-cover-back"></div>
@@ -95,16 +95,16 @@ $(document).ready(function(){
                         </div>
                         <div class="bk-page"><!-- Internal page content -->
                             <div class="bk-content bk-content-current">
-                                <h4>{{$book->title}}</h4><br>
-                                <h4>written by<br>{{$book->pen_name}}</h4>
-                                <h4>PTO...</h4>
+                                <h5>{{$book->title}}</h5><br>
+                                <h5>written by<br>{{$book->pen_name}}</h5>
+                                <h5>PTO...</h5>
                             </div>
                             <div class="bk-content">
                                 <p><?php echo substr($book->blurb, 0, 430); ?>...</p>
                             </div>
                         </div>
                         <div class="bk-back">
-                            <p><?php echo substr($book->blurb, 0, 557); ?>...</p>
+                            <p><?php echo substr($book->blurb, 0, 350); ?>...</p>
                         </div>
                         <div class="bk-right"></div>
                         <div class="bk-left">
