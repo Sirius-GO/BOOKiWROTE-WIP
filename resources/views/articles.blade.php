@@ -82,7 +82,7 @@ $(document).ready(function(){
         <ul id="bk-list" class="bk-list clearfix justify-content-center">
             @foreach($books as $book)
                 <li class="box col-sm-12">
-                    <div class="bk-book book-1 bk-bookdefault" style="margin-left: 30px;">
+                    <div class="bk-book book-1 bk-bookdefault" style="margin-left: 25px;">
                         <div class="bk-front">
                             <div class="bk-cover-back"></div>
                                 <div class="bk-cover">

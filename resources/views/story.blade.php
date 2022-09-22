@@ -41,7 +41,7 @@ $(document).ready(function(){
 @foreach($articles as $article)
 <div class="card mt-4">
         <div class="card-body" style="height:150px">
-            <h3>{{$article->title}}</h3>
+            <h3><a href="/article/{{$article->id}}" class="storylink" title="View {{$article->title}}">{{$article->title}}</a></h3>
         </div>
         <div class="card-footer">
             Added: {{$article->created_at->diffForHumans()}}<br>

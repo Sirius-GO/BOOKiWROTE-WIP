@@ -49,7 +49,7 @@ $(document).ready(function(){
             @foreach($books as $book)
                 <li class="box">
                     <!-- {{$book->id}}<br> -->
-                    <div class="bk-book book-1 bk-bookdefault">
+                    <div class="bk-book book-1 bk-bookdefault" style="margin-left: 25px;">
                         
                             <div class="bk-front">
                             <div class="bk-cover-back"></div>
@@ -70,7 +70,7 @@ $(document).ready(function(){
                             </div>
                         </div>
                         <div class="bk-back">
-                            <p><?php echo substr($book->blurb, 0, 557); ?>...</p>
+                            <p><?php echo substr($book->blurb, 0, 370); ?>...</p>
                         </div>
                         <div class="bk-right"></div>
                         <div class="bk-left">
@@ -83,9 +83,11 @@ $(document).ready(function(){
                         <div class="bk-bottom"></div>
                     </div>
                     <div class="bk-info">
-                        <button class="bk-bookback">Blurb</button>
-                        <button class="bk-bookview">Preview</button>
-                        <a href="book_details/{{$book->id}}"><button class="bk-view">Read More</button></a>
+                        <div class="text-center">
+                            <button class="bk-bookback">Blurb</button>
+                            <button class="bk-bookview">Preview</button>
+                            <a href="book_details/{{$book->id}}"><button class="bk-view">More</button></a>
+                        </div>
                         <h3>
                             <span>{{$book->pen_name}} - <b class="price">from {{$book->pformat}}{{$book->price}}</b></span>
                             <span>{{$book->title}}</span>
