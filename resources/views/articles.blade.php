@@ -79,13 +79,11 @@ $(document).ready(function(){
 <div class="container">	
 {{ $books->withQueryString()->onEachSide(0)->links("pagination::bootstrap-5") }}
     <div class="main">
-        <ul id="bk-list" class="row bk-list clearfix justify-content-center">
+        <ul id="bk-list" class="bk-list clearfix justify-content-center">
             @foreach($books as $book)
-                <li class="box col-sm-12 col-md-6">
-                    <!-- {{$book->id}}<br> -->
+                <li class="box col-sm-12">
                     <div class="bk-book book-1 bk-bookdefault" style="margin-left: 30px;">
-                        
-                            <div class="bk-front">
+                        <div class="bk-front">
                             <div class="bk-cover-back"></div>
                                 <div class="bk-cover">
                                     <a href="book_details/{{$book->id}}">
@@ -117,9 +115,11 @@ $(document).ready(function(){
                         <div class="bk-bottom"></div>
                     </div>
                     <div class="bk-info">
-                        <button class="bk-bookback">Blurb</button>
-                        <button class="bk-bookview">Preview</button>
-                        <a href="book_details/{{$book->id}}"><button class="bk-view">Read More</button></a>
+                        <div class="text-center">
+                            <button class="bk-bookback">Blurb</button>
+                            <button class="bk-bookview">Preview</button>
+                            <a href="book_details/{{$book->id}}"><button class="bk-view">More</button></a>
+                        </div>
                         <h3>
                             <span>{{$book->pen_name}} - <b class="price">from {{$book->pformat}}{{$book->price}}</b></span>
                             <span>{{$book->title}}</span>
@@ -135,10 +135,12 @@ $(document).ready(function(){
     </div>
 </div>
 </div>
+
 @else
     <p class="fs-4">No books have been found for your search term(s)<br>
     Clear the search or search for an alternative keyword or phrase</p>
     <strong>TIP! Single words or parts of words will render more results</strong>
 @endif
+
 
 @endsection

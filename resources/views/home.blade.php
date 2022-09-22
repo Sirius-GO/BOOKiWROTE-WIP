@@ -34,7 +34,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
             @foreach($books as $book)
                 <li class="box col-sm-12 col-md-6">
                     <!-- {{$book->id}}<br> -->
-                    <div class="bk-book book-1 bk-bookdefault" style="margin-left: 30px;">
+                    <div class="bk-book book-1 bk-bookdefault" style="margin-left: 35px;">
                         
                             <div class="bk-front">
                             <div class="bk-cover-back"></div>
@@ -68,9 +68,11 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
                         <div class="bk-bottom"></div>
                     </div>
                     <div class="bk-info">
-                        <button class="bk-bookback">Blurb</button>
-                        <button class="bk-bookview">Preview</button>
-                        <a href="book_details/{{$book->id}}"><button class="bk-view">Read More</button></a>
+                        <div class="text-center">
+                            <button class="bk-bookback">Blurb</button>
+                            <button class="bk-bookview">Preview</button>
+                            <a href="book_details/{{$book->id}}"><button class="bk-view">Read More</button></a>
+                        </div>
                         <h3>
                             <span>{{$book->pen_name}} - <b class="price">from {{$book->pformat}}{{$book->price}}</b></span>
                             <span>{{$book->title}}</span>
