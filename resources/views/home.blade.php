@@ -93,7 +93,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
     Clear the search or search for an alternative keyword or phrase</p>
     <strong>TIP! Single words or parts of words will render more results</strong>
 @endif
-
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script>
 $(document).ready(function(){
    $(".active").removeClass("active");

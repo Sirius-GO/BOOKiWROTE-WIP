@@ -4,7 +4,13 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
 ?>
 
 @section('content')
-<div><h3>Self-Help Articles</h3></div>
+
+<div class="container">    
+    <a href="/articles" class="green_butn d-inline float-end">
+        More Articles
+    </a>    
+    <h3>Self-Help Articles</h3>    
+
 
 <div class="row">
 @foreach($articles as $art)
@@ -98,7 +104,6 @@ $(document).ready(function(){
             @endforeach
         </ul>
     </div>
-</div>
 </div>
 @else
     <p class="fs-4">No books have been found for your search term(s)<br>
