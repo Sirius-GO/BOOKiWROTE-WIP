@@ -36,6 +36,7 @@
                     @yield('sidebar')
                 </div>
             </div>
+            @include('inc.sitemap')
         </main>
         @include('inc.footer')
     </div>

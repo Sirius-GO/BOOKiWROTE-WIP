@@ -1,3 +1,7 @@
+html {
+	overflow-x: hidden;
+}
+
 .bk-list {
 	list-style: none;
 	position: relative;
@@ -536,13 +540,15 @@ li.page-item {
 	-moz-transform-2d: scale(2); /* FF */
 	-webkit-transform-2d: scale(2); /* Safari and Chrome */
 	-o-transform-2d: scale(2); /* Opera */
+	transform: scale(2);
   }
 /* size share buttons */
-  .sb { 
+.sb { 
 	-ms-transform-2d: scale(1.3); /* IE */
 	-moz-transform-2d: scale(1.3); /* FF */
 	-webkit-transform-2d: scale(1.3); /* Safari and Chrome */
 	-o-transform-2d: scale(1.3); /* Opera */
+	transform: scale(1.3);
   }
 
   .message_bar{
@@ -592,14 +598,39 @@ li.page-item {
 	padding: 10px;
   }
 
-  .article img {
-	max-width: 100%;
-  }
+div .art_ttl{
+	text-align: left;
+	width: 100%;
+	border: solid #000 1px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
 
-  .storylink {
+.article img, .art_cnt img {
+	max-width: 100%;
+}
+
+.storylink {
 	color: #000;
 	text-decoration: none;
-  }
+}
+div .art_cnt{
+	white-space: pre-wrap;
+	text-align: left;
+	height: 350px;
+	width: 100%;
+	overflow-y: scroll;
+	border: solid #000 1px;
+	padding: 10px;
+}
+
+.tc{
+	padding: 0px; 
+	font-weight: bold;
+	margin: 2px;
+	height: 50px;
+	width: 50px;
+}
 
 .card-top {
 	background: linear-gradient(to bottom right, #ccc, #333);
@@ -632,5 +663,22 @@ li.page-item {
 	background: #0a652c;
 	color: #fff;
 }
+
+.sitemap, .sitemap a:active, .sitemap a{
+    position: relative;
+    margin-top: 145px;
+    width: 100%;
+    height: relative;
+    min-height: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+	text-decoration: none;
+}
+
+.sitemap a:hover {
+	color: #aaa;
+}
+
 
 

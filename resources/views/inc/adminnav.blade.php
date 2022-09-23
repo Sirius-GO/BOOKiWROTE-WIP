@@ -42,7 +42,9 @@
         <div id="collapseArticles" class="collapse" aria-labelledby="headingAticles" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Post Controls:</h6>
+            <a class="collapse-item" href="{{route('add.article')}}">Add a New Article</a>
             <a class="collapse-item" href="{{route('my.articles')}}">My Articles</a>
+            
           </div>
         </div>
       </li>

@@ -13,7 +13,7 @@
         </div>
         <div class="card-footer">
             Added: {{$art->created_at->diffForHumans()}}<br>
-            <a href="#" class="btn btn-success btn-sm"> Edit </a>
+            <a href="{{route('edit.article', $art->id)}}" class="btn btn-success btn-sm"> Edit </a>
             <a href="#" class="btn btn-danger btn-sm d-inline float-end"> Delete </a>
         </div>
     </div>

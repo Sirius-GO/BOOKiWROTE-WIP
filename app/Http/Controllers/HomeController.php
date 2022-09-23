@@ -322,6 +322,53 @@ class HomeController extends Controller
         return view('articles')->with('articles', $articles)->with('books', $books);  
     }
 
+    public function show_add_article()
+    {
+        return view('add_article');
+    }
+
+    public function edit_article($id)
+    {
+
+        $article = Articles::where('id', $id)->get();
+        
+        return view('edit_article')->with('article', $article);
+    }
+
+    public function store_article(){
+        $content = $_POST['content1'];
+        $title = $_POST['title1'];
+
+        //Validate Posted Content
+
+        if($content){
+            //Update Post
+            $post = New Articles;
+            $post->uid = auth()->user()->id;
+            $post->title = $title;
+            $post->content = $content;
+            $post->created_at = time();
+            $post->updated_at = time();
+            $post->save();
+
+        }
+    }
+
+    public function update_article($id){
+        $content = $_POST['content1'];
+        $title = $_POST['title1'];
+        //if $content is not empty update DB
+
+        if($content){
+            //Update Post
+            $post = Articles::find($id);
+            $post->title = $title;
+            $post->content = $content;
+            $post->updated_at = time();
+            $post->save();
+
+        }
+    }
 
 
 }

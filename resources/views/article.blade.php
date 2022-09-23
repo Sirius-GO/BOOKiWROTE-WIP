@@ -39,6 +39,8 @@ $(document).ready(function(){
    $("#articles").addClass("active");
 });
 </script>
+
+</div>
 @endsection
 
 
@@ -60,7 +62,7 @@ $(document).ready(function(){
                             <div class="bk-front">
                             <div class="bk-cover-back"></div>
                                 <div class="bk-cover">
-                                    <a href="book_details/{{$book->id}}">
+                                    <a href="/book_details/{{$book->id}}">
                                         <img src="{{asset($book->c_image)}}" class="booksize">
                                     </a>
                                 </div> 
@@ -110,5 +112,5 @@ $(document).ready(function(){
     Clear the search or search for an alternative keyword or phrase</p>
     <strong>TIP! Single words or parts of words will render more results</strong>
 @endif
-
+</div>
 @endsection

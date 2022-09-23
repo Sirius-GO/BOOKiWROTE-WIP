@@ -41,6 +41,10 @@ Route::get('/admin/undeletebook/{id}', [App\Http\Controllers\HomeController::cla
 //STORIES AND ARTICLES ADMIN ROUTES
 Route::get('/admin/mystories', [App\Http\Controllers\HomeController::class, 'my_stories'])->name('my.stories');
 Route::get('/admin/myarticles', [App\Http\Controllers\HomeController::class, 'my_articles'])->name('my.articles');
+Route::get('/admin/add_article', [App\Http\Controllers\HomeController::class, 'show_add_article'])->name('add.article');
+Route::post('/admin/add_article', [App\Http\Controllers\HomeController::class, 'store_article'])->name('store.article');
+Route::get('/admin/edit_article/{id}', [App\Http\Controllers\HomeController::class, 'edit_article'])->name('edit.article');
+Route::post('/admin/update_article/{id}', [App\Http\Controllers\HomeController::class, 'update_article'])->name('update.article');
 
 //Book Purchase Links
 Route::post('/admin/addbooklink', [App\Http\Controllers\HomeController::class, 'add_book_link'])->name('booklink.create');
