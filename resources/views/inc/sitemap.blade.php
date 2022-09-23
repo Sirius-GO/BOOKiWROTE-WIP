@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-4 p-4">
                     <br><br>
-                    <img src="{{asset('icons/bookiwrote.png')}}" class="mb-2" height="30px;">
+                    <img src="{{asset('images/bookiwrote.png')}}" class="mb-2" height="30px;">
 					<h6><a href="/home" alt="home" title="home"> <i class="fa fa-home fa-lg"></i> Home </a></h6>
 					<h6><a href="/authors" alt="Authors" title="Authors"> <i class="fa fa-book fa-lg"></i> Authors </a></h6>
 					<h6><a href="/narrators" alt="Narrators" title="Narrators"> <i class="fa fa-comment fa-lg"></i> Narrators </a></h6>
@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 p-4">
                     <br><br>
-                    <img src="{{asset('icons/bookiwrote.png')}}" class="mb-2" height="30px;">
+                    <img src="{{asset('images/bookiwrote.png')}}" class="mb-2" height="30px;">
 					@if(!Auth::guest())
 					<h6><a href="/admin" alt="Administration" title="Administration"> <i class="fa fa-pencil fa-lg"></i> Administration </a></h6>
 					@else
@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 p-4">
                     <br><br>
-                    <img src="{{asset('icons/bookiwrote.png')}}" class="mb-2" height="30px;">
+                    <img src="{{asset('images/bookiwrote.png')}}" class="mb-2" height="30px;">
 					<h6><a href="article/15" alt="Terms and Conditions" title="BOOKiWROTE Terms and Conditions"> <i class="fa fa-file fa-lg"></i> Terms and Conditions </a></h6>
 					<h6><a href="/privacy" alt="Privacy Policy" title="Privacy Policy"> <i class="fa fa-file fa-lg"></i> Privacy Policy </a></h6>
 					<h6><a href="/articles" alt="home" title="home"> <i class="fa fa-info fa-lg"></i> Self-Help Articles </a></h6>

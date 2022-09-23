@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white shadow-sm">
     <div class="container">
-        <img src="{{asset('icons/bookiwrote_bw.png')}}" height="30px;">
+        <img src="{{asset('images/bookiwrote_bw.png')}}" height="30px;">
         <a class="navbar-brand" href="{{ url('/') }}">
             &nbsp;{{ config('app.name', 'Laravel') }}
         </a>
