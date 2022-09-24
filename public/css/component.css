@@ -674,6 +674,7 @@ div .art_cnt{
     color: #fff;
     text-align: left;
 	text-decoration: none;
+	overflow-x: hidden;
 }
 
 .sitemap a:hover {
