@@ -300,7 +300,7 @@ class HomeController extends Controller
 
     public function stories() {
         $stories = Stories::get();
-        $articles = Articles::get();
+        $articles = Articles::inRandomOrder()->limit(12)->get();
         return view('stories')->with('stories', $stories)->with('articles', $articles);  
     }
 
@@ -369,6 +369,198 @@ class HomeController extends Controller
 
         }
     }
+
+
+    public function authors()
+    {
+       $author = Author::orderby('pen_name','asc')->get();
+
+        return view('authors')->with('author', $author);
+    }
+
+    public function author($id)
+    {
+
+        //More books by the same author
+        $books = Book::orderby('id', 'asc')->where('book_author_id', $id)->get();
+        
+        $author = Author::orderby('id', 'asc')->where('id', $id)->get();
+        $book_links = Link::leftjoin('books', 'books.id', 'book_links.book_id')->where('author_id', $id)->orderby('book_links.book_id', 'asc')->get();
+        $author_details = Author::where('id', $id)->get();
+        $audiobook = Audiobook::where('author_id', $id)->get();
+        $other_links = Olink::where('author_id', $id)->orderby('platform', 'asc')->get();
+        $narrator_ids = DB::table('audio_snippets')
+                      ->select('narrator_id')
+                      ->groupBy('narrator_id')
+                      ->where('author_id', $id)
+                      ->get();   
+        return view('author')
+                  ->with('books', $books)
+                  ->with('author', $author)
+                  ->with('book_links', $book_links)
+                  ->with('other_links', $other_links)
+                  ->with('audiobook', $audiobook)
+                  ->with('author_details', $author_details)
+                  ->with('narrator_ids', $narrator_ids);
+    }
+
+// ============================ AUTHORS =========================================================
+
+    public function show_add_author(){
+      $author_check = Author::where('user_id', auth()->user()->id)->get();
+      return view('add_author')->with('author_check', $author_check);
+    }
+
+    public function store_author(Request $request){
+      
+      $this->validate($request, [
+          'pen_name' => 'required',
+          'bio' => 'required',
+          'keywords' => 'required',
+          'genre_check_list' => 'required'
+        ]);
+
+
+        $genre = $request->input('genre_check_list');
+        $genres = implode(", ", $genre);
+
+                //Handle File Upload
+      if($request->hasFile('author_image')){
+
+          //Get original filename
+          $filenameWithExt = $request->file('author_image')->getClientOriginalName();
+          //Get just the filename
+          $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+          //Get Just filename extension
+          $extension = $request->file('author_image')->getClientOriginalExtension();
+          //Concatenate filename with date / time to make it unique
+          $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+          //Upload image
+          $path = $request->file('author_image')->storeAs('public/authors', $fileNameToStore);
+          
+          $request->file('author_image')->move('/var/www/vhosts/bookiwrote.co.uk/httpdocs/storage/authors/', $fileNameToStore);
+              
+          
+          
+      } else {
+          //If no image add default filename to db
+          $fileNameToStore = 'author_avatar.jpg';
+      }	
+        
+        
+          //Create new entry into Messages get_html_translation_table
+          try{
+              
+              $app = new Author;
+              $app->user_id = auth()->user()->id;
+              $app->pen_name = $request->input('pen_name');
+              $app->image = 'authors/'.$fileNameToStore;
+              $app->bio = $request->input('bio');
+              $app->keywords = $request->input('keywords');
+              $app->genres = $genres;
+              $app->save();
+  
+              return redirect('/admin')->with('success', 'Your New Author Page has been successfully created. Thank you!');
+              
+          } catch (\Illuminate\Database\QueryException $e) {
+              $errorCode = $e->errorInfo[1];
+              echo $e->errorInfo[1];
+              if($errorCode == 1062){
+                  return back()->with('error', 'An Author Page has already been created under your given Pen Name. Please try another.');
+              }
+          }
+              
+              
+
+    }
+
+   public function edit_author($id){
+       
+       $author = Author::where('id', $id)->get();
+       
+       return view('authors.author_edit')->with('author', $author);
+       
+   }
+  
+    public function update_author(Request $request){
+      $this->validate($request, [
+          'id' => 'required',
+          'pen_name' => 'required',
+          'bio' => 'required',
+          'keywords' => 'required',
+          'genre_check_list' => 'required'
+        ]);
+
+        $id = $request->input('id');
+        $genre = $request->input('genre_check_list');
+        $genres = implode(", ", $genre);
+
+                //Handle File Upload
+      if($request->hasFile('author_image')){
+
+          //Get original filename
+          $filenameWithExt = $request->file('author_image')->getClientOriginalName();
+          //Get just the filename
+          $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+          //Get Just filename extension
+          $extension = $request->file('author_image')->getClientOriginalExtension();
+          //Concatenate filename with date / time to make it unique
+          $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+          //Upload image
+          $path = $request->file('author_image')->storeAs('public/authors', $fileNameToStore);
+          
+          $request->file('author_image')->move('/var/www/vhosts/bookiwrote.co.uk/httpdocs/storage/authors/', $fileNameToStore);
+              
+          try{
+              $app = Author::find($id);
+              $app->user_id = auth()->user()->id;
+              $app->pen_name = $request->input('pen_name');
+              $app->image = 'authors/'.$fileNameToStore;
+              $app->bio = $request->input('bio');
+              $app->keywords = $request->input('keywords');
+              $app->genres = $genres;
+              $app->save();
+             } catch (\Illuminate\Database\QueryException $e) {
+                  $errorCode = $e->errorInfo[1];
+                  if($errorCode == 1062){
+                      return back()->with('error', 'An Author Page has already been created under your given Pen Name. Please try another.');
+                  }
+              }
+          
+      } else {
+          
+          try{
+              $app = Author::find($id);
+              $app->user_id = auth()->user()->id;
+              $app->pen_name = $request->input('pen_name');
+              $app->bio = $request->input('bio');
+              $app->keywords = $request->input('keywords');
+              $app->genres = $genres;
+              $app->save();
+             } catch (\Illuminate\Database\QueryException $e) {
+                  $errorCode = $e->errorInfo[1];
+                  if($errorCode == 1062){
+                      return back()->with('error', 'There was an issue updating your page.');
+                  }
+              }
+      }	
+             
+              return redirect('/admin')->with('success', 'Your Author Page has been successfully updated. Thank you!');
+
+
+    }
+
+    public function delete_author(Request $request){
+
+
+    }
+
+  
+  
+
+
+
+
 
 
 }

@@ -1,8 +1,26 @@
 <!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAuthor" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-pen"></i>
+          <span>Author Admin</span>
+        </a>
+        <div id="collapseAuthor" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Author Controls:</h6>
+            <a class="collapse-item" href="{{route('add.author')}}">Add a New Author Page</a>
+            <a class="collapse-item" href="{{route('author', auth()->user()->id)}}">My Author Page</a>
+          </div>
+        </div>
+      </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+<!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-book"></i>
-          <span>Book Administration</span>
+          <span>Book Admin</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -20,7 +38,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-pen-fancy"></i>
-          <span>Stories &amp; Poems</span>
+          <span>Stories &amp; Poems Admin</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -37,7 +55,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseArticles" aria-expanded="true" aria-controls="collapseArticles">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Articles Administration</span>
+          <span>Articles Admin</span>
         </a>
         <div id="collapseArticles" class="collapse" aria-labelledby="headingAticles" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
