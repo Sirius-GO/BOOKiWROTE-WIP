@@ -4,6 +4,7 @@
 
 <h1 class="m-4">My Stories &amp; Poems</h1>
 <div class="container">
+<div class="row">
 @foreach($my_stories as $story)
 <div class="col-sm-12 col-md-3 m-4">
 <div class="card mt-4" style="margin-left: -35px;">
@@ -22,7 +23,7 @@
     </div>
 </div>
 @endforeach
-</div>
+</div></div>
 
 @endsection
 
