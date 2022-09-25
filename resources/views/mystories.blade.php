@@ -6,7 +6,7 @@
 <div class="container">
 @foreach($my_stories as $story)
 <div class="col-sm-12 col-md-3 m-4">
-<div class="card mt-4">
+<div class="card mt-4" style="margin-left: -35px;">
         <div class="card-img-top">
             <img src="{{asset('stories/'.$story->img)}}" class="top_img" />
         </div>

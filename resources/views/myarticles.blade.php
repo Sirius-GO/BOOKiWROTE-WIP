@@ -3,11 +3,12 @@
 @section('content')
 
 <h1 class="m-4">My Articles</h1>
-<div class="row">
 
+<div class="row">
+<div class="container">
 @foreach($my_articles as $art)
 <div class="col-sm-12 col-md-3 m-4">
-    <div class="card mt-4" style="min-height: 220px;">
+    <div class="card mt-4" style="min-height: 220px; margin-left: -40px;">
         <div class="card-body">
             <h3>{{$art->title}}</h3>
         </div>
@@ -19,7 +20,7 @@
     </div>
 </div>
 @endforeach
-</div>
+</div></div>
 
 @endsection
 
