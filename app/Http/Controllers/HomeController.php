@@ -9,6 +9,7 @@ use App\Models\Articles;
 use App\Models\Book;
 use App\Models\Author;
 use App\Models\Link;
+use App\Models\Olink;
 use App\Models\User;
 use App\Models\Narrator;
 use App\Models\Audiobook;
@@ -382,19 +383,20 @@ class HomeController extends Controller
     {
 
         //More books by the same author
-        $books = Book::orderby('id', 'asc')->where('book_author_id', $id)->get();
+        $books = Book::with('authors')->with('narrators')->orderby('books.id', 'asc')->where('book_author_id', $id)->get();
         
-        $author = Author::orderby('id', 'asc')->where('id', $id)->get();
+        $author = Author::where('user_id', $id)->get();
         $book_links = Link::leftjoin('books', 'books.id', 'book_links.book_id')->where('author_id', $id)->orderby('book_links.book_id', 'asc')->get();
-        $author_details = Author::where('id', $id)->get();
+        $author_details = Author::where('author_id', $id)->get();
         $audiobook = Audiobook::where('author_id', $id)->get();
         $other_links = Olink::where('author_id', $id)->orderby('platform', 'asc')->get();
         $narrator_ids = DB::table('audio_snippets')
                       ->select('narrator_id')
                       ->groupBy('narrator_id')
                       ->where('author_id', $id)
-                      ->get();   
-        return view('author')
+                      ->get();  
+                      
+        return view('myauthor')
                   ->with('books', $books)
                   ->with('author', $author)
                   ->with('book_links', $book_links)
@@ -436,16 +438,12 @@ class HomeController extends Controller
           //Concatenate filename with date / time to make it unique
           $fileNameToStore = $filename . '_' . time() . '.' . $extension;
           //Upload image
-          $path = $request->file('author_image')->storeAs('public/authors', $fileNameToStore);
+          //$path = $request->file('author_image')->storeAs('public/authors', $fileNameToStore);
           
-          $request->file('author_image')->move('/var/www/vhosts/bookiwrote.co.uk/httpdocs/storage/authors/', $fileNameToStore);
-              
-          
-          
-      } else {
-          //If no image add default filename to db
-          $fileNameToStore = 'author_avatar.jpg';
-      }	
+          $img = $request->file('author_image');
+          $img->move('authors', $fileNameToStore);	    
+           
+      }
         
         
           //Create new entry into Messages get_html_translation_table

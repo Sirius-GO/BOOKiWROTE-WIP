@@ -50,7 +50,7 @@ Route::post('/admin/update_article/{id}', [App\Http\Controllers\HomeController::
 
 
 //Authors
-Route::get('/admin/author/{id}', [App\Http\Controllers\HomeController::class, 'authors'])->name('author');
+Route::get('/admin/author/{id}', [App\Http\Controllers\HomeController::class, 'author'])->name('author');
 Route::get('/admin/authors', [App\Http\Controllers\HomeController::class, 'authors'])->name('authors');
 Route::get('/admin/add_author', [App\Http\Controllers\HomeController::class, 'show_add_author'])->name('add.author');
 Route::post('/admin/add_author', [App\Http\Controllers\HomeController::class, 'store_author'])->name('store.author');
