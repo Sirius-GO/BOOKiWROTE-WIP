@@ -3,7 +3,7 @@
 @section('content')
 
 <h1 class="m-4">My Stories &amp; Poems</h1>
-
+<div class="container">
 @foreach($my_stories as $story)
 <div class="col-sm-12 col-md-3 m-4">
 <div class="card mt-4">
@@ -22,7 +22,7 @@
     </div>
 </div>
 @endforeach
-
+</div>
 
 @endsection
 

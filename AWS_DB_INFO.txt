@@ -1,8 +1,6 @@
 instance endpoint
 bookiwrote.c6cahgpgbg7g.us-east-1.rds.amazonaws.com
 
-
-
 master user
 admin
 
@@ -16,6 +14,10 @@ bookiwrote.link
 
 IP Address
 3.229.45.165
+
+MySQL Command Line Login
+
+mysql -h bookiwrote.c6cahgpgbg7g.us-east-1.rds.amazonaws.com -P 3306 -u admin -P
 
 
 Requirements
