@@ -16,3 +16,4 @@ yarn-error.log
 /.idea
 /.vscode
 AWS_DB_INFO.txt
+azure_credentials.txt

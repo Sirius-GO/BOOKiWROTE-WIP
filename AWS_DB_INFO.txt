@@ -41,7 +41,7 @@ https://github.com/Sirius-GO/BOOKiWROTE-WIP.git
 
     <Directory /var/www/bookiwrote>
 	Require all granted
-	AllowOveride All
+	AllowOverride All
 	Options Indexes Multiviews FollowSymLinks
     </Directory>
 </VirtualHost>
