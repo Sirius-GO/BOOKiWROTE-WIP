@@ -13,7 +13,8 @@ Homestead.yaml
 auth.json
 npm-debug.log
 yarn-error.log
-/.idea
-/.vscode
 AWS_DB_INFO.txt
 azure_credentials.txt
+/.idea
+/.vscode
+
