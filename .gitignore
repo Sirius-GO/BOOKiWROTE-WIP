@@ -15,6 +15,8 @@ npm-debug.log
 yarn-error.log
 aws_credentials.txt
 azure_credentials.txt
+.env_aws.example
+.env_azure.example
 /.idea
 /.vscode
 
