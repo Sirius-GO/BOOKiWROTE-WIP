@@ -28,7 +28,7 @@ sudo apt install php8.1 php8.1-bcmath php8.1-ctype php8.1-curl php8.1-dom php8.1
 Repository
 https://github.com/Sirius-GO/BOOKiWROTE-WIP.git
 
-//Virtual Host file
+//Virtual Host file  
 
 <VirtualHost *:80>
     ServerAdmin gowen@goldsoft.org.uk
