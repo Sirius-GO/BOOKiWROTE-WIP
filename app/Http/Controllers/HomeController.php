@@ -371,13 +371,39 @@ class HomeController extends Controller
         }
     }
 
-
-    public function authors()
+    public function all_authors()
     {
-       $author = Author::orderby('pen_name','asc')->get();
+       $authors = Author::orderby('pen_name','asc')->get();
 
-        return view('authors')->with('author', $author);
+        return view('all_authors')->with('authors', $authors);
     }
+
+    public function show_author($id)
+    {
+
+        //More books by the same author
+        $books = Book::with('authors')->with('narrators')->orderby('books.id', 'asc')->where('book_author_id', $id)->get();
+        
+        $author = Author::where('user_id', $id)->get();
+        $author_details = Author::where('author_id', $id)->get();
+        $audiobook = Audiobook::where('author_id', $id)->get();
+        $other_links = Olink::where('author_id', $id)->orderby('platform', 'asc')->get();
+  
+                      
+        return view('ind_author')
+                  ->with('books', $books)
+                  ->with('author', $author)
+                  ->with('other_links', $other_links)
+                  ->with('audiobook', $audiobook)
+                  ->with('author_details', $author_details);
+    }
+
+    // public function authors()
+    // {
+    //    $author = Author::orderby('pen_name','asc')->get();
+
+    //     //return view('authors')->with('author', $author);
+    // }
 
     public function author($id)
     {
@@ -419,7 +445,8 @@ class HomeController extends Controller
           'pen_name' => 'required',
           'bio' => 'required',
           'keywords' => 'required',
-          'genre_check_list' => 'required'
+          'genre_check_list' => 'required',
+          'author_image' => 'required'
         ]);
 
 

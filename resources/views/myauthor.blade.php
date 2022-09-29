@@ -106,7 +106,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
         <h2>My Audio Book Previews</h2><br>
         @if(count($audiobook)> 0)
             @foreach($audiobook as $as) 
-                    <div class="boxesa"> 
+                    <div> 
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-3">
                                 <img src="{{asset($as->thumb)}}" style="width: 60%; margin: auto;">

@@ -24,7 +24,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin');
 Route::get('/book_details/{id}', [App\Http\Controllers\HomeController::class, 'book_details']);
 
-
 //BOOK ADMIN CRUD ROUTES
 Route::get('/admin/mybooks', [App\Http\Controllers\HomeController::class, 'my_books'])->name('my.books');
 Route::get('/admin/addbook', [App\Http\Controllers\HomeController::class, 'show_add_book'])->name('show.add.book');
@@ -37,6 +36,7 @@ Route::get('/admin/undeletebook/{id}', [App\Http\Controllers\HomeController::cla
 //STORIES ROUTES
 Route::get('/stories/{id}', [App\Http\Controllers\HomeController::class, 'story'])->name('story');
 Route::get('/shortstories', [App\Http\Controllers\HomeController::class, 'stories'])->name('stories');
+//Stories Admin
 Route::get('/admin/mystories', [App\Http\Controllers\HomeController::class, 'my_stories'])->name('my.stories');
 
 //Article Routes
@@ -50,8 +50,11 @@ Route::post('/admin/update_article/{id}', [App\Http\Controllers\HomeController::
 
 
 //Authors
+Route::get('/all_authors', [App\Http\Controllers\HomeController::class, 'all_authors'])->name('authors');
+Route::get('/ind_author/{id}', [App\Http\Controllers\HomeController::class, 'show_author'])->name('show.author');
+//Authors Admin
 Route::get('/admin/author/{id}', [App\Http\Controllers\HomeController::class, 'author'])->name('author');
-Route::get('/admin/authors', [App\Http\Controllers\HomeController::class, 'authors'])->name('authors');
+Route::get('/admin/authors', [App\Http\Controllers\HomeController::class, 'authors'])->name('all.authors');
 Route::get('/admin/add_author', [App\Http\Controllers\HomeController::class, 'show_add_author'])->name('add.author');
 Route::post('/admin/add_author', [App\Http\Controllers\HomeController::class, 'store_author'])->name('store.author');
 Route::get('/admin/edit_author/{id}', [App\Http\Controllers\HomeController::class, 'edit_author'])->name('edit.author');

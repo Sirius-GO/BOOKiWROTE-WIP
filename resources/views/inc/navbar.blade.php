@@ -15,7 +15,7 @@
                     <a class="nav-link active" id="home" href="/"> Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="authors" href="/authors"> Authors </a>
+                    <a class="nav-link" id="authors" href="/all_authors"> Authors </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="narrators" href="/narrators"> Narrators </a>

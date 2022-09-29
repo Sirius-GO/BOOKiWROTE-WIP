@@ -24,7 +24,7 @@
             <label class="fw-bold"> Pen Name:</label>
             <input type="text" name="pen_name" class="form-control" placeholder="Max 200 Characters" required>
 
-            <label class="fw-bold"> My Photo: </label> (For best results use a square or portrait image of at least 350 pixels wide and max 500 pixels wide in jpeg or png format)
+            <label class="fw-bold"> My Photo: </label> (For best results use a portrait image 300 pixels wide by 450 pixels tall in jpeg or png format)
             <input type="file" class="form-control" name="author_image">          
 
             <label  class="fw-bold"> Bio: </label>
