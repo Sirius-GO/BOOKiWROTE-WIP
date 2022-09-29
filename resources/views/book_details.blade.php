@@ -362,7 +362,7 @@ $uri = session()->get('uri');
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-            </div>
+            
 
 @endsection
 
@@ -408,5 +408,7 @@ $uri = session()->get('uri');
     {{ $other_books->withQueryString()->onEachSide(0)->links("pagination::bootstrap-5") }}
     </div>
 </div>
+</div>
+
 </div>
 @endsection
