@@ -180,7 +180,7 @@ $uri = session()->get('uri');
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-md-4 text-center sb">
+        <div class="col-sm-12 col-md-4 text-center sb p-4">
             <!-- Load Facebook SDK for JavaScript -->
             <div id="fb-root"></div>
             <script>(function(d, s, id) {
@@ -200,12 +200,12 @@ $uri = session()->get('uri');
             ?>
             <div class="fb-share-button" data-href="{{$social_url}}" data-layout="button_count"></div>      
         </div>
-        <div class="col-sm-12 col-md-4 text-center sb">
+        <div class="col-sm-12 col-md-4 text-center sb p-4">
                 <!-- LinkedIn -->
                 <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
                 <script type="IN/Share" data-url="{{$social_url}}"></script>  
         </div> 
-        <div class="col-sm-12 col-md-4  text-center sb">
+        <div class="col-sm-12 col-md-4  text-center sb p-4">
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-hashtags="<?php echo str_replace(' ', '', $social_title); ?>,bookiwrote,authorworldconnect" data-show-count="false">Tweet</a>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
