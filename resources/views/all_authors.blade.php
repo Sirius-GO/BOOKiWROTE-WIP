@@ -17,7 +17,7 @@
                     <small><b>Pen Name: </b></small><p>{{$atr->pen_name}}</p>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                    <a href="/author/{{$atr->user_id}}" class="btn btn-info btn-sm">
+                    <a href="/ind_author/{{$atr->user_id}}" class="btn btn-info btn-sm">
                         View My Author Page 
                     </a>
                 </div>
