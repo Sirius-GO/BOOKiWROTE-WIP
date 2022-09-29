@@ -362,7 +362,7 @@ $uri = session()->get('uri');
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
+            </div>
 
 @endsection
 
