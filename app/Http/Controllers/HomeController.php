@@ -382,12 +382,14 @@ class HomeController extends Controller
     {
 
         //More books by the same author
-        $books = Book::with('authors')->with('narrators')->orderby('books.id', 'asc')->where('book_author_id', $id)->get();
+        $author_id = Author::where('user_id', $id)->pluck('author_id');
+        $books = Book::with('authors')->with('narrators')->orderby('books.id', 'asc')->where('user_id', $id)->get();
         
         $author = Author::where('user_id', $id)->get();
-        $author_details = Author::where('author_id', $id)->get();
-        $audiobook = Audiobook::where('author_id', $id)->get();
-        $other_links = Olink::where('author_id', $id)->orderby('platform', 'asc')->get();
+        $author_details = Author::where('user_id', $id)->get();
+        
+        $audiobook = Audiobook::where('author_id', $author_id[0])->get();
+        $other_links = Olink::where('author_id', $author_id[0])->orderby('platform', 'asc')->get();
   
                       
         return view('ind_author')
@@ -408,28 +410,24 @@ class HomeController extends Controller
     public function author($id)
     {
 
+
         //More books by the same author
-        $books = Book::with('authors')->with('narrators')->orderby('books.id', 'asc')->where('book_author_id', $id)->get();
+        $author_id = Author::where('user_id', $id)->pluck('author_id');
+        $books = Book::with('authors')->with('narrators')->orderby('books.id', 'asc')->where('user_id', $id)->get();
         
         $author = Author::where('user_id', $id)->get();
-        $book_links = Link::leftjoin('books', 'books.id', 'book_links.book_id')->where('author_id', $id)->orderby('book_links.book_id', 'asc')->get();
-        $author_details = Author::where('author_id', $id)->get();
-        $audiobook = Audiobook::where('author_id', $id)->get();
-        $other_links = Olink::where('author_id', $id)->orderby('platform', 'asc')->get();
-        $narrator_ids = DB::table('audio_snippets')
-                      ->select('narrator_id')
-                      ->groupBy('narrator_id')
-                      ->where('author_id', $id)
-                      ->get();  
+        $author_details = Author::where('user_id', $id)->get();
+        
+        $audiobook = Audiobook::where('author_id', $author_id[0])->get();
+        $other_links = Olink::where('author_id', $author_id[0])->orderby('platform', 'asc')->get();
+  
                       
         return view('myauthor')
                   ->with('books', $books)
                   ->with('author', $author)
-                  ->with('book_links', $book_links)
                   ->with('other_links', $other_links)
                   ->with('audiobook', $audiobook)
-                  ->with('author_details', $author_details)
-                  ->with('narrator_ids', $narrator_ids);
+                  ->with('author_details', $author_details);
     }
 
 // ============================ AUTHORS =========================================================

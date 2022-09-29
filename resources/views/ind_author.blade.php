@@ -154,7 +154,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
                                 @foreach($author_details as $athr)
                                 <br>
                                 <h6>Written By {{$athr->pen_name}}</h6>
-                                        <h6>Narrated By <a href="/narrator_page/1">{{$as->narrators->name}}</a></h6>
+                                        <h6>Narrated By <a href="/narrator_page/{{$as->narrator_id}}">#</a></h6>
                                     @endforeach
                                     @endif
                                 </div>
