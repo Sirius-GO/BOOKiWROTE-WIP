@@ -555,7 +555,7 @@ li.page-item {
     width: 100%;
     text-align: center;
     position: absolute;
-    top: 0px;
+    top: 55px;
     z-index: 99;
 
     animation:message_bar 5s 1;
