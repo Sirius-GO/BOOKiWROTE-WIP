@@ -636,9 +636,13 @@ class HomeController extends Controller
 		  $txt .= '<br><br>Thank you,<br><br><b>BOOKiWROTE Administration Service</b>';
 		  $txt .= '</body></html>';
 		  // To send HTML mail, the Content-type header must be set
-		  $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		  $headers =  'MIME-Version: 1.0' . "\r\n"; 
+          $headers .= 'From: Your name <';
+          $headers .= $from;
+          $headers .= '>' . "\r\n";
+          $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 		  //SEND MAIL
-		  mail($to,$subject,$txt,$headers,"-f ".$from);
+		  mail($to,$subject,$txt,$headers);
 
 
       } catch (\Illuminate\Database\QueryException $e) {
