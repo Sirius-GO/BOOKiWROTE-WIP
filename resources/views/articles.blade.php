@@ -35,7 +35,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
     </div>
 </div>
 
-
+</div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script>
 $(document).ready(function(){

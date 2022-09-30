@@ -13,6 +13,7 @@ use App\Models\Olink;
 use App\Models\User;
 use App\Models\Narrator;
 use App\Models\Audiobook;
+use App\Models\Contact;
 use DB;
 
 class HomeController extends Controller
@@ -24,7 +25,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'book_details', 'stories', 'article', 'articles', 'show_author', 'all_authors']);
+        $this->middleware('auth')->except(['index', 'book_details', 'stories', 'article', 'articles', 'show_author', 'all_authors', 'contact', 'contact_form']);
     }
 
     /**
@@ -578,8 +579,85 @@ class HomeController extends Controller
 
     }
 
+  // ================= PRIVACY =================================
+    public function privacy() {
+        return view('privacy');  
+    }
+
+
+    public function contact()
+    {
+        return view('contact');
+    }
+
+    public function contact_form(Request $request){
+        $this->validate($request, [
+          'name' => 'required',
+          'email' => 'required',
+          'message' => 'required',
+		  'antispam' => 'required'
+        ]);
   
+	  if($request->input('antispam') == 14){
+      //Create new entry into Messages get_html_translation_table
+      try{
+        $chk = SHA1($request->input('name').$request->input('email').$request->input('message'));
   
+        $app = new Contact;
+        $app->name = $request->input('name');
+        $app->email = $request->input('email');
+        $app->message = $request->input('message');
+        $app->chk = $chk;
+        $app->save();
+  
+        //Send email to contactus@bookiwrote.co.uk here
+        //===========================================
+        //
+		  
+		  
+		  
+			$to = 'contactus@bookiwrote.co.uk';
+			$subject = 'Contact Form Message';
+			$who = $request->input('name');
+			$from = $request->input('email');
+		    $msg = $request->input('message');
+
+			//Send email
+			//===========================================
+			//
+			  
+		
+		  $txt = '<html><head><title>BOOKiWROTE Mail</title><style>body { font-family: tahoma, sans-serif; max-width: 90%; margin-left: 10%; background-color: #ddd;}</style></head><body><br><br>';
+		  $txt .= 'Hello Webmaster';
+		  $txt .= ', <br><br> You have received the following message via the BOOKiWROTE contact form: <br><br>'. "\r\n";
+		  $txt .= $msg;
+		  $txt .= '<br><br> The message was from: '. "\r\n";
+		  $txt .= $who;	
+		  $txt .= '<br><br>Thank you,<br><br><b>BOOKiWROTE Administration Service</b>';
+		  $txt .= '</body></html>';
+		  // To send HTML mail, the Content-type header must be set
+		  $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		  //SEND MAIL
+		  mail($to,$subject,$txt,$headers,"-f ".$from);
+
+
+      } catch (\Illuminate\Database\QueryException $e) {
+          $errorCode = $e->errorInfo[1];
+          if($errorCode == 1062){
+              return back()->with('error', 'We have already receieved this message from you! Duplicated messages can\'t be sent...');
+          }
+     }
+  
+        return back()->with('success', 'Your message has been sent successfully. Thank you!');
+		  
+		  
+	  } else {
+		 return back()->with('error', 'Spam Filter Incorrect. Please try again!'); 
+	  }
+  
+      }
+
+
 
 
 

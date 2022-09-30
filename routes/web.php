@@ -23,6 +23,12 @@ Route::post('/', [App\Http\Controllers\HomeController::class, 'index'])->name('s
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin');
 Route::get('/book_details/{id}', [App\Http\Controllers\HomeController::class, 'book_details']);
+Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
+Route::post('/contact', ['as' => 'contact.form', 'uses' => 'App\Http\Controllers\HomeController@contact_form']);
+
+//Policies
+Route::get('/privacy', [App\Http\Controllers\HomeController::class, 'privacy'])->name('privacy');
+
 
 //BOOK ADMIN CRUD ROUTES
 Route::get('/admin/mybooks', [App\Http\Controllers\HomeController::class, 'my_books'])->name('my.books');
