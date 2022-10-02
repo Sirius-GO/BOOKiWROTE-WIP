@@ -6,6 +6,26 @@
 
 <div class="container">
     <div class="row">
+    <h3 class="mt-2">My Stats:</h3>
+            <div class="col-sm-12 col-md-4">
+            <div class="card p-3 mt-4 admin">
+                NUMBER OF BOOKS:<hr>
+                <h3>{{$mybooks}}</h3>
+            </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <div class="card p-3 mt-4 admin">
+                    NUMBER OF STORIES & PEOMS:<hr>
+                    <h3>{{$mystories}}</h3>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <div class="card p-3 mt-4 admin">
+                    NUMBER OF ARTICLES:<hr>
+                    <h3>{{$myarticles}}</h3>
+                </div>
+            </div>
+            <div class="col-sm-12"><hr></div>
         <h3>Site Stats:</h3>
         <div class="col-sm-12 col-md-4">
             <div class="card p-3 mt-4 admin">
@@ -43,26 +63,7 @@
                     <h3>{{$narrators}}</h3>
                 </div>
             </div>
-            <h3 class="mt-4">My Stats:</h3>
-            <div class="col-sm-12 col-md-4">
-            <div class="card p-3 mt-4 admin">
-                NUMBER OF BOOKS:<hr>
-                <h3>{{$mybooks}}</h3>
-            </div>
-            </div>
-            <div class="col-sm-12 col-md-4">
-                <div class="card p-3 mt-4 admin">
-                    NUMBER OF STORIES & PEOMS:<hr>
-                    <h3>{{$mystories}}</h3>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4">
-                <div class="card p-3 mt-4 admin">
-                    NUMBER OF ARTICLES:<hr>
-                    <h3>{{$myarticles}}</h3>
-                </div>
-            </div>
-
+            <div class="col-sm-12"><hr></div>
         </div>
     </div>
 </div>

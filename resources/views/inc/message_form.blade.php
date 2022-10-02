@@ -1,12 +1,12 @@
 <div class="mx-4">
     <div class="row">
             <br>
-        <h1><i class="fa fa-envelope"></i> Send a Message</h1><br>
+        <h1><i class="fa fa-envelope"></i> Message Another User</h1><br>
 <div class="container">
     <div class="col-12">
         <br>
         <div class="card">
-            <div class="card card-header fw-700"><b>Contact Form</b></div>
+            <div class="card card-header fw-700"><b>Message Form</b></div>
             <div class="card card-body">
               <form action="{{ route('store.message') }}" method="post">
                 {{ csrf_field()}}
@@ -36,6 +36,8 @@
                         <i class="fa fa-envelope"></i> Send
                     </button>
                 </form>
+                <br>
+<small class="fw-bold">(Your message will be available for the user the next time they log in, via Admin. All users can choose whether or not they wish to be notified via email.)</small>
             </div>
         </div>
         <br>
@@ -44,3 +46,4 @@
 </div>
 </div>
 </div></div>
+

@@ -20,7 +20,7 @@
 					@if(!Auth::guest())
 					<h6><a href="/admin" alt="Administration" title="Administration"> <i class="fa fa-pencil fa-lg"></i> Administration </a></h6>
 					@else
-					<h6><i class="fa fa-pencil fa-lg"></i> Administration</h6>
+					<h6 class="text-muted"><i class="fa fa-pencil fa-lg"></i> Administration</h6>
 					@endif
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 p-4">
@@ -32,7 +32,7 @@
 					@if(!Auth::guest())
 					<h6><a href="/admin/account/{{auth()->user()->id}}" alt="Account Settings" title="Account Settings"> <i class="fa fa-cog fa-lg"></i> Account Settings </a></h6>
 					@else
-						<h6><i class="fa fa-cog fa-lg"></i> Account Settings </h6>
+						<h6 class="text-muted"><i class="fa fa-cog fa-lg"></i> Account Settings </h6>
 					@endif
                 </div>
             </div>
