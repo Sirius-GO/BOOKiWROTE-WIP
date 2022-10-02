@@ -3,9 +3,9 @@
     <div class="card-body">
         <h2>
             Contribute to our next anthology - 
-            <button class="btn btn-outline-success my-2 my-sm-0 m-2">
+            <a href="/article/32" class="btn btn-outline-success my-2 my-sm-0 m-2">
                 find out more!
-            </button>
+            </a>
         </h2>
     </div>  
 </div>
