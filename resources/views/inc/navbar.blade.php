@@ -26,6 +26,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="articles" href="/articles"> Articles </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact" href="/contact"> Contact Us </a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

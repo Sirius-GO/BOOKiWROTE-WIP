@@ -33,6 +33,7 @@
     </div>
 </div>
 </div>
+<div class="mx-2">
 <div class="row" style="margin: -19px 5px 0px 5px; border: solid 10px rgba(0, 0, 0, 0);">
     <!-- Google Maps -->
     <div id="googleMap" style="width:100%;height:420px;"></div>
@@ -54,5 +55,6 @@
     }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM0ERWi_9VlGshhy902l6opsLkwYDWGBo&callback=myMap"></script>
+</div>
 </div>
 </div>

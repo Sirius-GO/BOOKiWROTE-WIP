@@ -39,6 +39,11 @@ Route::post('/admin/storebook', [App\Http\Controllers\HomeController::class, 'st
 Route::delete('/admin/deletebook/{id}', [App\Http\Controllers\HomeController::class, 'book_destroy'])->name('delete.book');
 Route::get('/admin/undeletebook/{id}', [App\Http\Controllers\HomeController::class, 'book_undestroy'])->name('book.undelete');
 
+//MESSAGES
+Route::get('/admin/message_form', [App\Http\Controllers\HomeController::class, 'message_form'])->name('message');
+Route::post('/admin/message_form', ['as' => 'store.message', 'uses' => 'App\Http\Controllers\HomeController@store_message']);
+
+
 //STORIES ROUTES
 Route::get('/stories/{id}', [App\Http\Controllers\HomeController::class, 'story'])->name('story');
 Route::get('/shortstories', [App\Http\Controllers\HomeController::class, 'stories'])->name('stories');

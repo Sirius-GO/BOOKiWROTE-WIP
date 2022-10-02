@@ -15,6 +15,7 @@ use App\Models\Narrator;
 use App\Models\Audiobook;
 use App\Models\Contact;
 use DB;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -69,7 +70,6 @@ class HomeController extends Controller
         $mybooks = Book::where('user_id', $id)->count();
         $mystories = Stories::where('uid', $id)->count();
         $myarticles = Articles::where('uid', $id)->count();
-        
 
         return view('admin')
              ->with('books', $books)
@@ -597,52 +597,25 @@ class HomeController extends Controller
           'message' => 'required',
 		  'antispam' => 'required'
         ]);
+
+        if(Auth::check()){
+            $user_id = auth()->user()->id;
+        } else {
+            $user_id = Null;
+        }
   
 	  if($request->input('antispam') == 14){
-      //Create new entry into Messages get_html_translation_table
+      //Create new entry into Contact Us
       try{
         $chk = SHA1($request->input('name').$request->input('email').$request->input('message'));
   
         $app = new Contact;
+        $app->user_id = $user_id;
         $app->name = $request->input('name');
         $app->email = $request->input('email');
         $app->message = $request->input('message');
         $app->chk = $chk;
         $app->save();
-  
-        //Send email to contactus@bookiwrote.co.uk here
-        //===========================================
-        //
-		  
-		  
-		  
-			$to = 'contactus@bookiwrote.co.uk';
-			$subject = 'Contact Form Message';
-			$who = $request->input('name');
-			$from = $request->input('email');
-		    $msg = $request->input('message');
-
-			//Send email
-			//===========================================
-			//
-			  
-		
-		  $txt = '<html><head><title>BOOKiWROTE Mail</title><style>body { font-family: tahoma, sans-serif; max-width: 90%; margin-left: 10%; background-color: #ddd;}</style></head><body><br><br>';
-		  $txt .= 'Hello Webmaster';
-		  $txt .= ', <br><br> You have received the following message via the BOOKiWROTE contact form: <br><br>'. "\r\n";
-		  $txt .= $msg;
-		  $txt .= '<br><br> The message was from: '. "\r\n";
-		  $txt .= $who;	
-		  $txt .= '<br><br>Thank you,<br><br><b>BOOKiWROTE Administration Service</b>';
-		  $txt .= '</body></html>';
-		  // To send HTML mail, the Content-type header must be set
-		  $headers =  'MIME-Version: 1.0' . "\r\n"; 
-          $headers .= 'From: Your name <';
-          $headers .= $from;
-          $headers .= '>' . "\r\n";
-          $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-		  //SEND MAIL
-		  mail($to,$subject,$txt,$headers);
 
 
       } catch (\Illuminate\Database\QueryException $e) {
@@ -661,9 +634,58 @@ class HomeController extends Controller
   
       }
 
+      public function message_form()
+      {
+          $recipient = User::get();
+          return view('message_form')->with('recipient', $recipient);
+      }
+
+      public function store_message(Request $request){
+        $this->validate($request, [
+          'name' => 'required',
+          'email' => 'required',
+          'message' => 'required',
+          'recipient_id' => 'required',
+		  'antispam' => 'required'
+        ]);
+         
+        if(Auth::check()){
+            $user_id = auth()->user()->id;
+        } else {
+            $user_id = Null;
+        }
+  
+	  if($request->input('antispam') == 14){
+      //Create new entry into Contact Us
+      try{
+        $chk = SHA1($request->input('name').$request->input('email').$request->input('message'));
+  
+        $app = new Contact;
+        $app->r_id = $request->input('recipient_id');
+        $app->user_id = $user_id;
+        $app->name = $request->input('name');
+        $app->email = $request->input('email');
+        $app->message = $request->input('message');
+        $app->chk = $chk;
+        $app->is_read = 0;
+        $app->save();
 
 
-
+      } catch (\Illuminate\Database\QueryException $e) {
+          $errorCode = $e->errorInfo[1];
+          if($errorCode == 1062){
+              return back()->with('error', 'You have already sent this message! Duplicated messages can\'t be sent...');
+          }
+     }
+  
+        return back()->with('success', 'Your message has been sent successfully. Thank you!');
+		  
+		  
+	  } else {
+		 return back()->with('error', 'Spam Filter Incorrect. Please try again!'); 
+	  }
+  
+      }
 
 
 
