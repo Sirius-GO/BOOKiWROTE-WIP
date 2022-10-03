@@ -22,9 +22,17 @@
                         <input type="hidden" name="original_message" value="{{$mm->message}}">
                         <input type="hidden" name="rid" value="{{$mm->user_id}}">
                         <input type="hidden" name="email" value="{{$mm->email}}">
+                        @if($mm->user_id !== Null)
                         <button type="submit" class="btn btn-info btn-sm" title="Reply to sender"> 
                             Reply 
                         </button>
+                        @else 
+                            <?php 
+                                $subject = 'Reply%20From%20BOOKiWROTE Contact Form';
+                                $body = '%0D%0A%0D%0A------------------------%0D%0AReplying to:%0D%0A'.$mm->message;
+                            ?>
+                            Reply to email address - <a href="mailto:{{$mm->email}}?subject={{$subject}}&body={{$body}}">{{$mm->email}}</a>
+                        @endif
                 </div>
             @endforeach
             @else 
