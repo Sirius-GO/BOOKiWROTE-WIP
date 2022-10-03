@@ -42,6 +42,10 @@ Route::get('/admin/undeletebook/{id}', [App\Http\Controllers\HomeController::cla
 //MESSAGES
 Route::get('/admin/message_form', [App\Http\Controllers\HomeController::class, 'message_form'])->name('message');
 Route::post('/admin/message_form', ['as' => 'store.message', 'uses' => 'App\Http\Controllers\HomeController@store_message']);
+Route::get('/admin/view_messages/{id}', [App\Http\Controllers\HomeController::class, 'view_messages'])->name('view.message');
+Route::post('/admin/reply_to_message', [App\Http\Controllers\HomeController::class, 'reply_messages'])->name('reply.message');
+Route::get('/admin/reply_to_message', [App\Http\Controllers\HomeController::class, 'reply_messages'])->name('reply.message');
+Route::get('/admin/reply', [App\Http\Controllers\HomeController::class, 'send_reply_message'])->name('reply');
 
 
 //STORIES ROUTES

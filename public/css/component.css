@@ -687,3 +687,21 @@ div .art_cnt{
 	position:relative;
 	left:calc(-1 * (100vw - 100%)/2);
 }
+
+div .mymessage {
+	white-space: pre-wrap;
+	height: 400px;
+	width: 100%;
+	overflow-y: scroll;
+	border: solid #ddd 1px;
+	padding: 10px;
+  }
+
+  textarea .myreply {
+	all: unset;
+	height: 400px;
+	width: 100%;
+	overflow-y: scroll;
+	border: solid #ddd 1px;
+	padding: 10px;
+  }

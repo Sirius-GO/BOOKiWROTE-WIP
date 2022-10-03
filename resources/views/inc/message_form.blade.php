@@ -10,9 +10,7 @@
             <div class="card card-body">
               <form action="{{ route('store.message') }}" method="post">
                 {{ csrf_field()}}
-                    <input type="text" class="form-control bg-light" name="name" placeholder="Please enter your Name"><br>
-                    <input type="email" class="form-control bg-light" name="email" placeholder="Please enter your Email Address"><br>
-                    <textarea class="form-control bg-light" name="message" placeholder="Please enter your message"></textarea><br>
+                    <textarea class="form-control bg-light" name="message" placeholder="Please enter your message" rows="10"></textarea><br>
 				    <div class="row">
                     <div class="col-sm-12 col-md-6">
                     @if(count($recipient)>0)

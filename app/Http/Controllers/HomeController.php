@@ -642,29 +642,23 @@ class HomeController extends Controller
 
       public function store_message(Request $request){
         $this->validate($request, [
-          'name' => 'required',
-          'email' => 'required',
+        //   'name' => 'required',
+        //   'email' => 'required',
           'message' => 'required',
           'recipient_id' => 'required',
 		  'antispam' => 'required'
         ]);
-         
-        if(Auth::check()){
-            $user_id = auth()->user()->id;
-        } else {
-            $user_id = Null;
-        }
   
-	  if($request->input('antispam') == 14){
+	  if(Auth::check() && $request->input('antispam') == 14){
       //Create new entry into Contact Us
       try{
         $chk = SHA1($request->input('name').$request->input('email').$request->input('message'));
   
         $app = new Contact;
         $app->r_id = $request->input('recipient_id');
-        $app->user_id = $user_id;
-        $app->name = $request->input('name');
-        $app->email = $request->input('email');
+        $app->user_id = auth()->user()->id;
+        $app->name = auth()->user()->name;
+        $app->email = auth()->user()->email;
         $app->message = $request->input('message');
         $app->chk = $chk;
         $app->is_read = 0;
@@ -687,7 +681,105 @@ class HomeController extends Controller
   
       }
 
+      public function view_messages($id)
+      {
+        if(Auth::check()){
 
+            //validate form data
+            
+
+            $id_check = Contact::where('id', $id)->pluck('r_id');
+            if(!empty($id_check[0]) && $id_check[0] === auth()->user()->id || auth()->user()->id === 1 && $id_check[0] === Null){
+                //Mark as read
+                $message_update = Contact::find($id);
+                $message_update->is_read = 1;
+                $message_update->update();
+                $my_messages = Contact::where('id', $id)->get();
+                
+                return view('view_messages')->with('my_messages', $my_messages);
+            } else {
+                $my_messages = [];
+                $error_message = 'You do not have necessary permission to access this message. This is a contravention of BOOKiWROTE rules. Further attempts to gain access to other users messages may render your account void.';
+                return view('view_messages')->with('my_messages', $my_messages)->with('error_message', $error_message);
+            }
+        } else {
+            return view('view_messages')->with('error', 'Please log in to view messages.');
+        }
+
+      }
+
+      public function reply_messages(Request $request)
+      {
+        if(Auth::check()){
+            $this->validate($request, [
+                'original_message' => 'required',
+                'rid' => 'required',
+                'email' => 'required|email'
+              ]);
+
+              $original_message = $request->input('original_message');
+              $rid = $request->input('rid');
+              $email = $request->input('email');
+            
+              //Show form with vars
+
+            return view('reply_to_message')
+                 ->with('original_message', $original_message)
+                 ->with('rid', $rid)
+                 ->with('email', $email);
+        } else {
+            $original_message = [];
+            $error_message = 'You do not have necessary permission to access this message. This is a contravention of BOOKiWROTE rules. Further attempts to gain access to other users messages may render your account void.';
+            return view('reply_to_message')->with('original_message', $original_message)->with('error_message', $error_message);
+        }
+
+      }
+
+      public function send_reply_message(Request $request)
+      {
+        if(Auth::check()){
+            $this->validate($request, [
+                'message' => 'required',
+                'original_message' => 'required',
+                'rid' => 'required',
+                'email' => 'required|email'
+              ]);
+
+              $message = $request->input('message');
+              $original_message = $request->input('original_message');
+              $rid = $request->input('rid');
+              $email = $request->input('email');
+
+              try {
+              $chk = SHA1(auth()->user()->name.auth()->user()->email.$message);
+  
+              $app = new Contact;
+              $app->r_id = $rid;
+              $app->user_id = auth()->user()->id;
+              $app->name = auth()->user()->name;
+              $app->email = auth()->user()->email;
+              $app->message = $message;
+              $app->chk = $chk;
+              $app->is_read = 0;
+              $app->save();
+
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('error', 'You have already sent this message! Duplicated messages can\'t be sent...');
+                }
+           }
+            
+              //Show form with vars
+
+            return redirect('/admin');
+        } else {
+            $original_message = [];
+            $error_message = 'You do not have necessary permission to access this message. This is a contravention of BOOKiWROTE rules. Further attempts to gain access to other users messages may render your account void.';
+            return view('reply_to_message')->with('original_message', $original_message)->with('error_message', $error_message);
+        }
+
+      }
 
 
 }

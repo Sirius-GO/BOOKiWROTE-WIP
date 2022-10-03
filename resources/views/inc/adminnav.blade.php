@@ -142,7 +142,7 @@
                 </h6>
                 @if(count($contact_form)>0)
                 @foreach($contact_form as $cf)
-                  <a class="dropdown-item d-flex align-items-center" href="#">
+                  <a class="dropdown-item d-flex align-items-center" href="/admin/view_messages/{{$cf->id}}">
                     <div class="dropdown-list-image mr-3">
                       <img class="rounded-circle" src="{{asset('images/avatar.jpg')}}" alt="">
                       <div class="status-indicator bg-success"></div>
