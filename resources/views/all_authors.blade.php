@@ -8,7 +8,7 @@
     <div class="row">
         @if(count($authors)>0)
         @foreach($authors as $atr)
-        <div class="col-xs-12 col-md-4 col-lg-3">  
+        <div class="col-xs-12 col-md-4 col-lg-3 d-flex justify-content-center">  
             <div class="card" style="height: 490px; width: 270px; margin: 10px;">  
                 <div class="card-top-img">
 				    <img src="{{asset($atr->image)}}" alt="{{$atr->pen_name}}" title="{{$atr->pen_name}}" class="top_img" style="height: 350px; border-bottom: 1px #ddd solid;">
