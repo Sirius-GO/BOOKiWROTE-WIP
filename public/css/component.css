@@ -419,6 +419,12 @@ html, body {
 	width: 100%;
 	max-height: 300px;
 }
+
+.top_img:hover{
+	opacity: 0.5;
+	filter: grayscale(0.5);
+}
+
 @media screen and (min-width: 1400px) {
 	.booksize2{
 		width: 250px;
