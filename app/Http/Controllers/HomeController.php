@@ -16,6 +16,7 @@ use App\Models\Audiobook;
 use App\Models\Contact;
 use DB;
 use Auth;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -780,6 +781,96 @@ class HomeController extends Controller
         }
 
       }
+
+// ========================= ACCOUNT SETINGS =====================================
+			
+public function myAccount()
+{
+    return view('account');
+}
+
+    public function updateAccount(Request $request){
+        
+        //Validation
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'id' => 'required'
+        ]);
+        
+        
+        
+        $nm = $request->input('name');
+        $email = $request->input('email');
+        $id = $request->input('id');
+        $current_email = User::where('id', $id)->pluck('email');
+        
+        try {
+        
+            $user = User::find($id);
+            $user->name = $nm;
+            $user->email = $email;
+            $user->save();
+
+            $contact = new Contact;
+            $contact->r_id = auth()->user()->id;
+            $contact->user_id = auth()->user()->id;
+            $contact->name = 'SYSTEM MESSAGE';
+            $contact->email = $email;
+            $contact->message = 'Your user account details have been successfully updated.';
+            $contact->chk = sha1(Str::random(60));
+            $contact->is_read = 0;
+            $contact->save();
+
+        } catch (QueryException $e) {
+            $error_code = $e->errorInfo[1];
+            if($error_code == 1062){
+                return back()->with('warning', 'You cannot use that email address, as it has already been registered. Please try again!');
+            }
+        }
+                
+        return back()->with('success', 'Your Account Details have been Updated Successfully!');
+    }
+
+
+    public function changePassword(Request $request){
+        
+        //Validation
+        $this->validate($request, [
+            'password' => 'required',
+            'confirm_password' => 'required',
+            'id' => 'required'
+        ]);
+        
+        $pw1 = $request->input('password');
+        $pw2 = $request->input('confirm_password');
+        $id = $request->input('id');
+        
+        if($pw1 === $pw2){
+            $user = User::find($id);
+            $user->password = bcrypt($pw1);
+            $user->save();
+            
+            
+
+          $mail = User::where('id', $id)->pluck('email');
+
+          $contact = new Contact;
+          $contact->r_id = auth()->user()->id;
+          $contact->user_id = auth()->user()->id;
+          $contact->name = 'SYSTEM MESSAGE';
+          $contact->email = $mail;
+          $contact->message = 'Your account password has been successfully updated.';
+          $contact->chk = sha1(Str::random(60));
+          $contact->is_read = 0;
+          $contact->save();
+
+            return back()->with('success', 'Your Password has been Changed Successfully!');
+        } else {
+            return back()->with('error', 'Your Passwords didn\'t match! Please try again.');
+        }
+    }
+
 
 
 }

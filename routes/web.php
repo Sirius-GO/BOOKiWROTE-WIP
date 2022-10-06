@@ -82,3 +82,8 @@ Route::post('/admin/deletebooklink', [App\Http\Controllers\HomeController::class
 
 //Audio Previews
 Route::post('/admin/addaudiopreview', [App\Http\Controllers\HomeController::class, 'add_audio_preview'])->name('audiopreview.create');
+
+//Account settings
+Route::get('/admin/account', [App\Http\Controllers\HomeController::class, 'myAccount']);
+Route::post('updateaccount', ['as' => 'UpdateDetails.account', 'uses' => 'App\Http\Controllers\HomeController@updateAccount']);
+Route::post('changepassword', ['as' => 'ChangePassword.account', 'uses' => 'App\Http\Controllers\HomeController@changePassword']);
