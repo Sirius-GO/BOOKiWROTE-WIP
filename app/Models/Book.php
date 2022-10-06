@@ -16,7 +16,7 @@ class Book extends Model
     protected $dates = ['deleted_at'];
 
     protected $casts = [
-        'title' => 'App\Casts\TitleCast',
+        //'title' => 'App\Casts\TitleCast',
     ];
 
     public function authors(){
