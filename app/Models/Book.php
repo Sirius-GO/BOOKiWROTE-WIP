@@ -15,6 +15,10 @@ class Book extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
+    protected $casts = [
+        'title' => 'App\Casts\TitleCast',
+    ];
+
     public function authors(){
         return $this->belongsTo('App\Models\Author', 'book_author_id');
     }
