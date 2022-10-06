@@ -25,9 +25,9 @@
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"><h4>{{ auth()->user()->email }}</h4> </div>
 		</div>	
 		</div>
-		<div class="card_footer" style="padding: 20px;">
+		<div class="card_footer d-flex justify-content-evenly m-4">
 		<button
-				class="btn btn-primary"
+				class="btn btn-primary m-2"
 				data-toggle="modal"
 				data-target="#UpdateDetails"
 				type="button"
@@ -35,7 +35,7 @@
 		</button>
 
 		<button
-				class="btn btn-warning pull-right"
+				class="btn btn-warning pull-right m-2"
 				data-toggle="modal"
 				data-target="#ChangePassword"
 				type="button"
