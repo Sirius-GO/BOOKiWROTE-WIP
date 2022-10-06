@@ -11,7 +11,9 @@
         <div class="col-xs-12 col-md-4 col-lg-3 d-flex justify-content-center">  
             <div class="card" style="height: 490px; width: 270px; margin: 10px;">  
                 <div class="card-top-img">
-				    <img src="{{asset($atr->image)}}" alt="{{$atr->pen_name}}" title="{{$atr->pen_name}}" class="top_img" style="height: 350px; border-bottom: 1px #ddd solid;">
+                <a href="/ind_author/{{$atr->user_id}}">
+                    <img src="{{asset($atr->image)}}" alt="{{$atr->pen_name}}" title="{{$atr->pen_name}}" class="top_img" style="height: 350px; border-bottom: 1px #ddd solid;">
+                </a>
                 </div>
                 <div class="card-body p-4">
                     <small><b>Pen Name: </b></small><p>{{$atr->pen_name}}</p>
