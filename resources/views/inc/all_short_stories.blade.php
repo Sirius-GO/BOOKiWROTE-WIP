@@ -6,6 +6,7 @@
         <div class="card-img-top">
         <a href="/stories/{{$story->id}}" class="storylink" title="View {{$story->title}}">
             <img src="{{asset('stories/'.$story->img)}}" class="top_img" height="250px"/>
+            <figcaption>Click to read - {{ Str::limit($story->title, 30) }}</figcaption>
         </a>
         </div>
         <div class="card-body" style="min-height: 110px;">

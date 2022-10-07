@@ -420,6 +420,21 @@ html, body {
 	max-height: 300px;
 }
 
+.storylink figcaption{
+	display: none;
+}
+
+.storylink:hover figcaption {
+	display: block;
+	position: absolute;
+	top: 193px;
+	width: 100%;
+	padding: 1em;
+	color: #333;
+	font-weight: bold;
+	background-color: rgba(255, 255, 255, 0.7);
+}
+
 .top_img:hover{
 	opacity: 0.8;
 	filter: grayscale(0.5);
