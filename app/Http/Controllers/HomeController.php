@@ -312,7 +312,8 @@ class HomeController extends Controller
         $books = Book::leftjoin('authors', 'book_author_id' , '=', 'author_id')
         ->inRandomOrder()
         ->orderby('books.id', 'desc')
-        ->paginate(1);  
+        ->limit(1)
+        ->get();  
         return view('article')->with('articles', $articles)->with('books', $books);   
     }
 

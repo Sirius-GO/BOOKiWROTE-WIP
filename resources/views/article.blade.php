@@ -51,7 +51,6 @@ $(document).ready(function(){
 @if(count($books)>0)
 <div>
 <div class="container">	
-{{ $books->withQueryString()->onEachSide(0)->links("pagination::bootstrap-5") }}
     <div class="main">
         <ul id="bk-list" class="bk-list clearfix justify-content-center">
             @foreach($books as $book)
