@@ -29,7 +29,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
 
         <br>
         <div class="m-4">
-            @include('inc.book_listings')
+            @include('inc.book_selection')
         </div>
 
     </div>

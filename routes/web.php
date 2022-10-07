@@ -87,3 +87,7 @@ Route::post('/admin/addaudiopreview', [App\Http\Controllers\HomeController::clas
 Route::get('/admin/account', [App\Http\Controllers\HomeController::class, 'myAccount']);
 Route::post('updateaccount', ['as' => 'UpdateDetails.account', 'uses' => 'App\Http\Controllers\HomeController@updateAccount']);
 Route::post('changepassword', ['as' => 'ChangePassword.account', 'uses' => 'App\Http\Controllers\HomeController@changePassword']);
+
+//Narrators
+Route::get('/all_narrators', [App\Http\Controllers\HomeController::class, 'all_narrators'])->name('narrators');
+Route::get('/ind_narrator/{id}', [App\Http\Controllers\HomeController::class, 'show_narrator'])->name('show.narrator');

@@ -9,7 +9,7 @@
     <div class="sidebar-brand-icon">
     <img src="{{asset('images/bookiwrote.png')}}" height="30px;">
     </div>
-    <div class="sidebar-brand-text mx-3">BOOKiWROTE Admin</div>
+    <div class="sidebar-brand-text mx-3">BOOKiWROTE</div>
   </a>
 
   <!-- Divider -->
@@ -18,8 +18,8 @@
   <!-- Nav Item - Admin -->
   <li class="nav-item">
     <a class="nav-link" href="/admin">
-      <i class="fas fa-fw fa-cog"></i>
-      <span>Admin</span></a>
+      <i class="fas fa-fw fa-chart-bar"></i>
+      <span>Admin Stats</span></a>
   </li>
 
   <!-- Divider -->
@@ -28,8 +28,8 @@
   <!-- Nav Item - Home -->
   <li class="nav-item">
     <a class="nav-link" href="/">
-      <i class="fas fa-fw fa-home"></i>
-      <span>Home</span></a>
+      <i class="fas fa-fw fa-user"></i>
+      <span>User Area</span></a>
   </li>
 
   <!-- Divider -->
@@ -37,14 +37,14 @@
 
   <!-- Heading -->
   <div class="sidebar-heading">
-    Admnistration Controls
+    Page Admin Controls
   </div>
 
 
   <!-- ======================================================== -->
 <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAuthor" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-pen"></i>
+          <i class="fas fa-fw fa-feather"></i>
           <span>Author Admin</span>
         </a>
         <div id="collapseAuthor" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -59,10 +59,32 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+            <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNarrator" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-comments"></i>
+          <span>Narrator Admin</span>
+        </a>
+        <div id="collapseNarrator" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Narrator Controls:</h6>
+            <a class="collapse-item" href="{{route('add.author')}}">Add a New Narrator Page</a>
+            <a class="collapse-item" href="{{route('author', auth()->user()->id)}}">My Narrator Page</a>
+          </div>
+        </div>
+      </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Feature Controls
+  </div>
+
 <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-book"></i>
+          <i class="fas fa-fw fa-book-open"></i>
           <span>Book Admin</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">

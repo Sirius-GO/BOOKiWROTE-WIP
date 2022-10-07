@@ -321,7 +321,8 @@ class HomeController extends Controller
         $books = Book::leftjoin('authors', 'book_author_id' , '=', 'author_id')
         ->inRandomOrder()
         ->orderby('books.id', 'desc')
-        ->paginate(3); 
+        ->limit(3)
+        ->get(); 
         return view('articles')->with('articles', $articles)->with('books', $books);  
     }
 
@@ -871,6 +872,40 @@ public function myAccount()
         }
     }
 
+// ========================== NARRATORS ====================================== 
+
+public function all_narrators()
+{
+    $narrators = Narrator::orderby('name','asc')->get();
+    return view('all_narrators')->with('narrators', $narrators);
+}
+
+public function ind_narrator($id)
+{
+
+    $books = Book::orderby('id', 'asc')->get();
+    $narrator = Narrator::orderby('id', 'asc')->where('id', $id)->get();
+    $narrator_links = Nlink::where('narrator_id', $id)->get();
+    $audiobook = Audiobook::where('narrator_id', $id)->get();
+    $author = Audiobook::where('narrator_id', $id)->pluck('author_id');
+    if(count($author)>0){
+    $author_details = Author::where('id', $author[0])->get();
+    } else {
+        $author_details = '';
+    }
+    $author_ids = DB::table('audio_snippets')
+    ->select('author_id')
+    ->groupBy('author_id')
+    ->where('narrator_id', $id)
+    ->get();
+    return view('ind_narrator')
+              ->with('books', $books)
+              ->with('narrator', $narrator)
+              ->with('narrator_links', $narrator_links)
+              ->with('audiobook', $audiobook)
+              ->with('author_details', $author_details)
+              ->with('author_ids', $author_ids);
+}
 
 
 }

@@ -18,7 +18,7 @@
                     <a class="nav-link" id="authors" href="/all_authors"> Authors </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="narrators" href="/narrators"> Narrators </a>
+                    <a class="nav-link" id="narrators" href="/all_narrators"> Narrators </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="stories" href="/shortstories"> Stories </a>
