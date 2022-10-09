@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Models\Narrator;
 use App\Models\Audiobook;
 use App\Models\Contact;
+use App\Models\Genre;
 use DB;
 use Auth;
 use Illuminate\Support\Str;
@@ -503,9 +504,10 @@ class HomeController extends Controller
 
    public function edit_author($id){
        
-       $author = Author::where('id', $id)->get();
+       $author = Author::where('author_id', $id)->get();
+       $genres = Genre::orderby('genre', 'asc')->get();
        
-       return view('authors.author_edit')->with('author', $author);
+       return view('edit_author')->with('author', $author)->with('genres', $genres);
        
    }
   

@@ -52,6 +52,7 @@
             <h6 class="collapse-header">Author Controls:</h6>
             <a class="collapse-item" href="{{route('add.author')}}">Add a New Author Page</a>
             <a class="collapse-item" href="{{route('author', auth()->user()->id)}}">My Author Page</a>
+            <a class="collapse-item" href="{{route('edit.author', auth()->user()->id)}}">Edit My Author Page</a>
           </div>
         </div>
       </li>
