@@ -439,7 +439,8 @@ class HomeController extends Controller
 
     public function show_add_author(){
       $author_check = Author::where('user_id', auth()->user()->id)->get();
-      return view('add_author')->with('author_check', $author_check);
+      $genres = Genre::orderby('genre', 'asc')->get();
+      return view('add_author')->with('author_check', $author_check)->with('genres', $genres);
     }
 
     public function store_author(Request $request){
