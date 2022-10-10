@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Narrator;
+use App\Models\Author;
 
 class User extends Authenticatable
 {
@@ -41,4 +43,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function narrators(){
+        return $this->hasOne('App\Models\Narrator', 'user_id');
+    }
+
+    public function authors(){
+        return $this->hasOne('App\Models\Author', 'user_id');
+    }
 }

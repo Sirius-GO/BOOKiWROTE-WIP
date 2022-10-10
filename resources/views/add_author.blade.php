@@ -8,7 +8,7 @@
 <div class="container">
     <br>
     <div class="card p-4">
-        <h3>You cannot add another author page. Only one author page is allowed per account. Choose 'Edit Author Profile' from the menu to update your existing page.</h3>
+        <h3>You cannot add another author page. Only one author page is allowed per account. Choose 'Edit My Author Page' from the left-hand menu to update your existing page.</h3>
         <br>
         <h3><a href="/admin/author/{{auth()->user()->id}}" class="btn btn-info btn-sm">Click here to view your author page</a></h3>
     </div>

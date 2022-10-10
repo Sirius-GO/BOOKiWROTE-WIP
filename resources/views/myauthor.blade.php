@@ -6,7 +6,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
 
 @section('content')
 
-<h1 class="m-4">Author Page</h1>
+<h1 class="m-4">My Author Page</h1>
 <div class="container">
 <div class="row">
 @if(count($author)>0)
@@ -181,7 +181,6 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
 
 </div>
 </div>
-
 
 
 <!-- MODALS HERE -->

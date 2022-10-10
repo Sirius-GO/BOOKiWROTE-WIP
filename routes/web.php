@@ -89,5 +89,14 @@ Route::post('updateaccount', ['as' => 'UpdateDetails.account', 'uses' => 'App\Ht
 Route::post('changepassword', ['as' => 'ChangePassword.account', 'uses' => 'App\Http\Controllers\HomeController@changePassword']);
 
 //Narrators
+Route::get('/admin/narrator/{id}', [App\Http\Controllers\HomeController::class, 'narrator'])->name('narrator');
 Route::get('/all_narrators', [App\Http\Controllers\HomeController::class, 'all_narrators'])->name('narrators');
 Route::get('/ind_narrator/{id}', [App\Http\Controllers\HomeController::class, 'show_narrator'])->name('show.narrator');
+//Narrator Admin
+Route::get('/admin/add_narrator', [App\Http\Controllers\HomeController::class, 'show_add_narrator'])->name('add.narrator');
+Route::post('/admin/add_narrator', [App\Http\Controllers\HomeController::class, 'store_narrator'])->name('store.narrator');
+Route::get('/admin/edit_narrator/{id}', [App\Http\Controllers\HomeController::class, 'edit_narrator'])->name('edit.narrator');
+Route::post('/admin/update_narrator/{id}', [App\Http\Controllers\HomeController::class, 'update_narrator'])->name('update.narrator');
+
+Route::post('/addnarratorlink', [App\Http\Controllers\HomeController::class, 'add_narrator_link'])->name('narratorlink.create');
+Route::delete('/narrator_delete', [App\Http\Controllers\HomeController::class, 'narrator_delete'])->name('narrator.delete');

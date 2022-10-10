@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Auth;
 use App\Models\Contact;
+use App\Models\Narrator;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -48,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
             } else {
                     $contact_form = [];
             }
+
             view()->share('contact_form', $contact_form);
         }); 
 

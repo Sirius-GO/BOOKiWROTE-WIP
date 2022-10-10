@@ -40,6 +40,7 @@
             </div>
             <br>
             <input type="hidden" name="id" value="{{$a->author_id}}">
+            <input type="hidden" name="current_image" value="{{$a->image}}">
             <button class="btn btn-success btn-sm" type="submit">
                 <i class="fa fa-pencil"></i> Update Author Details
             </button> 
@@ -56,6 +57,7 @@
     <div class="card p-4">
         No Author Found
     </div>
+</div>
 </div>
 @endif
 

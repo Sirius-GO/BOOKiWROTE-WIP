@@ -537,15 +537,22 @@ class HomeController extends Controller
           //Concatenate filename with date / time to make it unique
           $fileNameToStore = $filename . '_' . time() . '.' . $extension;
           //Upload image
-          $path = $request->file('author_image')->storeAs('public/authors', $fileNameToStore);
+        //   $path = $request->file('author_image')->storeAs('public/authors', $fileNameToStore);
           
-          $request->file('author_image')->move('/var/www/vhosts/bookiwrote.co.uk/httpdocs/storage/authors/', $fileNameToStore);
-              
+        //   $request->file('author_image')->move('/var/www/vhosts/bookiwrote.co.uk/httpdocs/storage/authors/', $fileNameToStore);
+          $img = $request->file('author_image');
+          $img->move('authors', $fileNameToStore);	    
+
+
           try{
               $app = Author::find($id);
               $app->user_id = auth()->user()->id;
               $app->pen_name = $request->input('pen_name');
-              $app->image = 'authors/'.$fileNameToStore;
+              if($request->hasFile('book_image')){
+                $app->image = 'authors/'.$fileNameToStore;
+              } else {
+                $app->image = $request->input('current_image');
+              }
               $app->bio = $request->input('bio');
               $app->keywords = $request->input('keywords');
               $app->genres = $genres;
@@ -584,6 +591,190 @@ class HomeController extends Controller
 
 
     }
+
+
+// ==============================================  NARRATOR ADMIN PAGES ========================================
+    public function narrator($id){
+        $narrator = Narrator::with('nlinks')->with('audiobooks')->where('narrator_id', $id)->get();
+        $aid = Audiobook::where('narrator_id', $id)->get('author_id');
+        if(count($aid)> 0){
+            foreach($aid as $a){
+                $authors = Author::where('author_id', $a->author_id)->get();
+            }
+        } else {
+            $authors = [];
+        }
+        // return $narrator;
+        
+        return view('mynarrator')->with('narrator', $narrator)->with('authors', $authors);
+    }
+    public function edit_narrator($id){
+        $narrator_check = Narrator::where('user_id', auth()->user()->id)->get();
+        $narrator = Narrator::where('narrator_id', $id)->get();
+
+        return view('edit_narrator')->with('narrator_check', $narrator_check)->with('narrator', $narrator);
+
+    }
+
+    public function update_narrator(Request $request){
+        
+        $this->validate($request, [
+			'name' => 'required',
+            'voice_character' => 'required',
+			'voice_quality' => 'required',
+			'nationality' => 'required',
+			'appearance' => 'required',
+			'voice_age' => 'required',
+			'singing_voice' => 'required',
+			'voice_accent' => 'required',
+            'bio' => 'required',
+            'keywords' => 'required'
+          ]);
+
+          $id = $request->input('id');
+         //Handle File Upload
+        if($request->hasFile('narrator_image')){
+
+            //Get original filename
+            $filenameWithExt = $request->file('narrator_image')->getClientOriginalName();
+            //Get just the filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //Get Just filename extension
+            $extension = $request->file('narrator_image')->getClientOriginalExtension();
+            //Concatenate filename with date / time to make it unique
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            //Upload image
+			// $path = $request->file('narrator_image')->storeAs('public/narrators', $fileNameToStore);
+			
+			// $request->file('narrator_image')->move('/var/www/vhosts/bookiwrote.co.uk/httpdocs/storage/narrators/', $fileNameToStore);
+            $img = $request->file('narrator_image');
+            $img->move('narrators', $fileNameToStore);              
+			
+		}
+
+            
+            //Create new entry into Messages get_html_translation_table
+            try{
+                
+                $app = Narrator::find($id);
+                $app->user_id = auth()->user()->id;
+                $app->name = $request->input('name');
+                if($request->hasFile('narrator_image')){
+                    $app->image = 'narrators/'.$fileNameToStore;
+                } else {
+                    $app->image = $request->input('current_image');
+                }
+				$app->voice_character = $request->input('voice_character');
+				$app->voice_quality = $request->input('voice_quality');
+				$app->nationality = $request->input('nationality');
+				$app->appearance = $request->input('appearance');
+				$app->voice_age = $request->input('voice_age');
+				$app->singing_voice = $request->input('singing_voice');
+				$app->voice_accent = $request->input('voice_accent');
+                $app->bio = $request->input('bio');
+                $app->keywords = $request->input('keywords');
+                $app->save();
+    
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('error', 'A Narrator Page has already been created under these credentials.');
+                }
+            }
+                
+                return redirect('/admin')->with('success', 'Your Narrator Page has been successfully updated. Thank you!');
+
+      }
+
+      public function show_add_narrator(){
+        $narrator_check = Narrator::where('user_id', auth()->user()->id)->get();
+        return view('add_narrator')->with('narrator_check', $narrator_check);
+
+    }
+
+    public function store_narrator(Request $request){
+        
+        $this->validate($request, [
+			'name' => 'required',
+			'narrator_image' => 'required',
+            'voice_character' => 'required',
+			'voice_quality' => 'required',
+			'nationality' => 'required',
+			'appearance' => 'required',
+			'voice_age' => 'required',
+			'singing_voice' => 'required',
+			'voice_accent' => 'required',
+            'bio' => 'required',
+            'keywords' => 'required'
+          ]);
+
+         //Handle File Upload
+        if($request->hasFile('narrator_image')){
+
+            //Get original filename
+            $filenameWithExt = $request->file('narrator_image')->getClientOriginalName();
+            //Get just the filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //Get Just filename extension
+            $extension = $request->file('narrator_image')->getClientOriginalExtension();
+            //Concatenate filename with date / time to make it unique
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            //Upload image
+			// $path = $request->file('narrator_image')->storeAs('public/narrators', $fileNameToStore);
+			
+			// $request->file('narrator_image')->move('/var/www/vhosts/bookiwrote.co.uk/httpdocs/storage/narrators/', $fileNameToStore);
+            $img = $request->file('narrator_image');
+            $img->move('narrators', $fileNameToStore);              
+			
+		}
+
+            
+            //Create new entry into Messages get_html_translation_table
+            try{
+                
+                $app = new Narrator;
+                $app->user_id = auth()->user()->id;
+                $app->name = $request->input('name');
+                $app->image = 'narrators/'.$fileNameToStore;
+				$app->voice_character = $request->input('voice_character');
+				$app->voice_quality = $request->input('voice_quality');
+				$app->nationality = $request->input('nationality');
+				$app->appearance = $request->input('appearance');
+				$app->voice_age = $request->input('voice_age');
+				$app->singing_voice = $request->input('singing_voice');
+				$app->voice_accent = $request->input('voice_accent');
+                $app->bio = $request->input('bio');
+                $app->keywords = $request->input('keywords');
+                $app->save();
+    
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('error', 'A Narrator Page has already been created under these credentials.');
+                }
+            }
+                
+                return redirect('/admin')->with('success', 'Your New Narrator Page has been successfully created. Thank you!');
+
+      }
+
+
+      public function add_audio_preivew(){
+
+      }
+
+      public function add_narrator_link(){
+
+      }
+      
+      Public function narrator_delete(){
+
+      }
+
+
+
+
+
 
   // ================= PRIVACY =================================
     public function privacy() {
