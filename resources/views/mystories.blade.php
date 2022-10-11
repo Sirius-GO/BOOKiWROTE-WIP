@@ -22,8 +22,8 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
             <img src="{{asset('stories/'.$story->img)}}" class="top_img" height="200px" style="filter: grayscale(1);"/>
         </div>
         @endif
-        <div class="card-body">
-            <h3>{{$story->title}}</h3>
+        <div class="card-body" style="min-height: 100px;">
+            <h5>{{ Str::limit($story->title, 50) }}</h5>
             <!-- Description:<br>{{$story->content}} -->
         </div>
         <span class="mx-4">

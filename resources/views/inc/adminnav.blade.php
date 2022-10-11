@@ -110,6 +110,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Post Controls:</h6>
+            <a class="collapse-item" href="{{route('add.story')}}">Add a New Story or Poem</a>
             <a class="collapse-item" href="{{route('my.stories')}}">My Stories &amp; Poems</a>
           </div>
         </div>
