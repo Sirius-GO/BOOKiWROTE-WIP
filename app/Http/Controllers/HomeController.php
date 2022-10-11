@@ -108,7 +108,7 @@ class HomeController extends Controller
 
     public function my_stories() {
         $id  = auth()->user()->id;
-        $my_stories = Stories::where('uid', $id)->get();
+        $my_stories = Stories::withTrashed()->where('uid', $id)->get();
         
         return view('mystories')->with('my_stories', $my_stories);  
     }
@@ -307,6 +307,109 @@ class HomeController extends Controller
         $articles = Articles::inRandomOrder()->limit(12)->get();
         return view('stories')->with('stories', $stories)->with('articles', $articles);  
     }
+
+    public function show_add_story()
+    {
+        return view('add_story');
+    }
+
+    public function edit_story($id)
+    {
+
+        $story = Stories::where('id', $id)->get();
+        
+        return view('edit_story')->with('story', $story);
+    }
+
+    public function store_story(){
+        $content = $_POST['content1'];
+        $title = $_POST['title1'];
+
+        //Validate Posted Content
+
+        if($content){
+            //Update Post
+            $post = New Stories;
+            $post->uid = auth()->user()->id;
+            $post->title = $title;
+            $post->img = 'noimage.jpg';
+            $post->content = $content;
+            $post->created_at = time();
+            $post->updated_at = time();
+            $post->save();
+
+        }
+    }
+
+	public function storyImageChange(Request $request){
+		
+		
+        if($request->hasFile('img')){
+
+            //Get original filename
+            $filenameWithExt = $request->file('img')->getClientOriginalName();
+            //Get just the filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //Get Just filename extension
+            $extension = $request->file('img')->getClientOriginalExtension();
+            //Concatenate filename with date / time to make it unique
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            //Upload image
+			// $path = $request->file('img')->storeAs('public/stories', $fileNameToStore);
+			
+			// $request->file('img')->move('/var/www/vhosts/bookiwrote.co.uk/httpdocs/storage/stories/', $fileNameToStore);
+			$img = $request->file('img');
+            $img->move('stories', $fileNameToStore);	
+			
+			
+		}
+		
+		
+			$id = $request->input('id');
+		
+		    //Update Post
+            $post = Stories::find($id);
+            if($request->hasFile('img')){
+                $post->img = $fileNameToStore;
+            } else {
+                $post->img = $request->input('current_image');
+            }
+            $post->updated_at = time();
+            $post->save();
+		
+
+		return back()->with('success', 'Your cover image has been successfully updated!');
+	}
+
+    public function update_story($id){
+        $content = $_POST['content1'];
+        $title = $_POST['title1'];
+        //if $content is not empty update DB
+
+        if($content){
+            //Update Post
+            $post = Stories::find($id);
+            $post->title = $title;
+            $post->content = $content;
+            $post->updated_at = time();
+            $post->save();
+
+        }
+    }
+
+    public function story_destroy($id){
+        $story = Stories::find($id);
+        $story->delete();
+        return back()->with('error', 'Short Story or Poem Deleted');
+    }
+
+    public function story_undestroy($id){
+        $story = Stories::withTrashed()->find($id);
+        $story->restore();
+        return back()->with('success', 'Short Story or Poem Successfully Restored');
+    }
+
+    // ===================== ARTICLE METHODS ===========================================
 
     public function article($id) {
         $articles = Articles::with('users')->where('id', $id)->get();

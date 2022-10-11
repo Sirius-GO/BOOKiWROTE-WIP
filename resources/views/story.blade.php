@@ -1,11 +1,14 @@
 @extends('layouts.app')
 <?php
-session()->put('uri', $_SERVER['REQUEST_URI']);
+$uri = session()->get('uri');
 ?>
 
 @section('content')
-<div><h3>Short Stories &amp; Poetry</h3></div>
-
+<div>
+    <h1>Short Stories &amp; Poetry
+     <span class="d-inline float-end"><a href="{{$uri}}" class="bk-info"><button>Go Back</button></a></span>
+    </h1>
+</div>
 <div class="row">
 @foreach($stories as $story)
 <div class="col-md-12">

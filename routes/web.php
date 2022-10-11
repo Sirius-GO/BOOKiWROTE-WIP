@@ -53,6 +53,14 @@ Route::get('/stories/{id}', [App\Http\Controllers\HomeController::class, 'story'
 Route::get('/shortstories', [App\Http\Controllers\HomeController::class, 'stories'])->name('stories');
 //Stories Admin
 Route::get('/admin/mystories', [App\Http\Controllers\HomeController::class, 'my_stories'])->name('my.stories');
+Route::get('/admin/add_story', [App\Http\Controllers\HomeController::class, 'show_add_story'])->name('add.story');
+Route::post('/admin/add_story', [App\Http\Controllers\HomeController::class, 'store_story'])->name('store.story');
+Route::get('/admin/edit_story/{id}', [App\Http\Controllers\HomeController::class, 'edit_story'])->name('edit.story');
+Route::post('/admin/update_story/{id}', [App\Http\Controllers\HomeController::class, 'update_story'])->name('update.story');
+Route::post('changeImage', [App\Http\Controllers\HomeController::class, 'storyImageChange'])->name('cover.change');
+Route::delete('/admin/deletestory/{id}', [App\Http\Controllers\HomeController::class, 'story_destroy'])->name('delete.story');
+Route::get('/admin/undeletestory/{id}', [App\Http\Controllers\HomeController::class, 'story_undestroy'])->name('story.undelete');
+
 
 //Article Routes
 Route::get('/article/{id}', [App\Http\Controllers\HomeController::class, 'article'])->name('article');
