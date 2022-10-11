@@ -10,7 +10,7 @@
 <div class="col-sm-12 col-md-3 m-4">
     <div class="card mt-4" style="min-height: 250px; margin-left: -40px;">
         <div class="card-body">
-            <h5>{{ Str::limit($art->title, 100) }}</h5>
+            <a href="/article/{{$art->id}}"><h5>{{ Str::limit($art->title, 100) }}</h5></a>
         </div>
         <div class="card-footer">
             Added: {{$art->created_at->diffForHumans()}}<br>
