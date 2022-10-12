@@ -17,7 +17,7 @@ $uri = session()->get('uri');
                         <h1>{{$bk->title}}</h1>
                             <span class="d-inline float-end"><a href="{{$uri}}" class="bk-info"><button>Go Back</button></a></span>
                             <small>Written By:</small>
-                            <h5>{{$bk->authors->pen_name}}</h5>
+                            <a href="/ind_author/{{$bk->user_id}}"><h5>{{$bk->authors->pen_name}}</h5></a>
                             <hr>  
                     </div>
                 </div>
