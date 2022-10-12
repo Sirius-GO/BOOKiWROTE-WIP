@@ -160,7 +160,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
                                     @if($as->narrator_id > 0)
                                     <h6>Narrated By <a href="/ind_narrator/{{$as->narrator_id}}">{{\App\Models\Narrator::findOrFail($as->narrator_id)->name}}</a></h6> 
                                     @else 
-                                    <h6>Narrated By - {{\App\Models\Narrator::findOrFail($as->narrator_id)->name}}</h6> 
+                                    <h6>Narrated By - {{\App\Models\Narrator::findOrFail(0)->name}}</h6> 
                                     @endif
                                 </div>
                             </div>
