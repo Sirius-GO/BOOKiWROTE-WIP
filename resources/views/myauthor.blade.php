@@ -54,7 +54,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
             <div class="col-xs-12 col-sm-12">
                 <!-- List of Links Here -->
                 @if(count($other_links)>0)
-                @foreach($other_links as $bol)
+                    @foreach($other_links as $bol)
                     <div class="row boxesa">
                         <div class="col-xs-12 col-sm-12 col-md-3">
                             <p class="fs-5">
@@ -64,11 +64,11 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
                         <div class="col-xs-12 col-sm-12 col-md-9">
                             <p class="fs-5">
                                 @if(!Auth::guest())
-								@if(auth()->user()->id === $bol->user_id)
-								<a href="" data-toggle="modal" data-target="#delete_author_link" onclick="delLinkId({{$bol->id}})" class="btn btn-danger btn-sm" style="color #eee; margin-top: 5px;">
-									<i class="fa fa-trash fa-lg"></i> 
-								</a>
-								@endif
+                                    @if(auth()->user()->id === $bol->user_id)
+                                    <a href="" data-toggle="modal" data-target="#delete_author_link" onclick="delLinkId({{$bol->id}})" class="btn btn-danger btn-sm" style="color #eee; margin-top: 5px;">
+                                        <i class="fa fa-trash fa-lg"></i> 
+                                    </a>
+                                    @endif
 								@endif
 								<a href="{{$bol->other_link}}" target="_blank" style="color: #1b95cd;"> {{$bol->link_title}} </a>
  	
@@ -85,7 +85,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
             <br><br> <!-- END OF MAIN DIV -->
         </div>
     @endforeach
-    @endif
+
         <br><hr><br>
         <h2>My Books</h2>
         @foreach($books as $book)
@@ -170,8 +170,8 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
                                     @else 
                                         <h6>Narrated By - {{\App\Models\Narrator::findOrFail($as->narrator_id)->name}}</h6> 
                                     @endif
-                                    @endforeach
-                                    @endif
+                                @endforeach
+                                @endif
                                 </div>
                             </div>
                         </div>
@@ -298,7 +298,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
 </div><!-- /.modal -->
 
 
-            </div>
+</div>
 
 @endsection
 
