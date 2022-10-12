@@ -17,7 +17,7 @@ $uri = session()->get('uri');
                         <h1>{{$bk->title}}</h1>
                             <span class="d-inline float-end"><a href="{{$uri}}" class="bk-info"><button>Go Back</button></a></span>
                             <small>Written By:</small>
-                            <a href="/ind_author/{{$bk->user_id}}" class="text-body" title="View Author's Page"><h5>{{$bk->authors->pen_name}}</h5></a>
+                            <h5>{{$bk->authors->pen_name}}</h5>
                             <hr>  
                     </div>
                 </div>
@@ -150,8 +150,8 @@ $uri = session()->get('uri');
                                 </script>
 
                                 <br>
-                                <h6>Narrated by <a href="/narrator_page/{{$as->narrator_id}}" style="color: #1b95cd;">{{$as->narrators->name}}</a>
-                                <span class="d-inline float-end"><a href="/narrator_page/{{$as->narrator_id}}" class="bk-info"><button>Read More</button></a></span></h6>
+                                <h6>Narrated by <a href="/ind_narrator/{{$as->narrator_id}}" style="color: #1b95cd;">{{$as->narrators->name}}</a>
+                                <span class="d-inline float-end"><a href="/ind_narrator/{{$as->narrator_id}}" class="bk-info"><button>Read More</button></a></span></h6>
 
 
                                 </div>
@@ -180,7 +180,7 @@ $uri = session()->get('uri');
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-md-4 text-center sb p-4">
+        <div class="col-sm-12 col-md-4 text-center sb">
             <!-- Load Facebook SDK for JavaScript -->
             <div id="fb-root"></div>
             <script>(function(d, s, id) {
@@ -200,12 +200,12 @@ $uri = session()->get('uri');
             ?>
             <div class="fb-share-button" data-href="{{$social_url}}" data-layout="button_count"></div>      
         </div>
-        <div class="col-sm-12 col-md-4 text-center sb p-4">
+        <div class="col-sm-12 col-md-4 text-center sb">
                 <!-- LinkedIn -->
                 <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
                 <script type="IN/Share" data-url="{{$social_url}}"></script>  
         </div> 
-        <div class="col-sm-12 col-md-4  text-center sb p-4">
+        <div class="col-sm-12 col-md-4  text-center sb">
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-hashtags="<?php echo str_replace(' ', '', $social_title); ?>,bookiwrote,authorworldconnect" data-show-count="false">Tweet</a>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
@@ -285,16 +285,13 @@ $uri = session()->get('uri');
                 {{ csrf_field()}}
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-					<?php
-						$narrator_selection = [];
-					?>
 					<label>Choose Narrator:</label>
 					@if(count($narrator_selection) > 0)
-					<select name="narrator_id" id="narrator_id" class="form-control">
-						@foreach($narrator_selection as $nsel)
-						<option value="{{$nsel->id}}"> {{$nsel->name}} </option>
-						@endforeach
+					<select name="narrator_id" id="narrator_id" class="form-select">
 						<option value="0"> Not Listed </option>
+                        @foreach($narrator_selection as $nsel)
+						<option value="{{$nsel->narrator_id}}"> {{$nsel->name}} </option>
+						@endforeach
 					</select>
 					@endif
                     <label>Choose Audiobook Preview File:</label>
@@ -362,7 +359,7 @@ $uri = session()->get('uri');
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-            
+
 
 @endsection
 
@@ -408,7 +405,5 @@ $uri = session()->get('uri');
     {{ $other_books->withQueryString()->onEachSide(0)->links("pagination::bootstrap-5") }}
     </div>
 </div>
-</div>
-
 </div>
 @endsection

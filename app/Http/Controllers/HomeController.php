@@ -10,6 +10,7 @@ use App\Models\Book;
 use App\Models\Author;
 use App\Models\Link;
 use App\Models\Olink;
+use App\Models\Nlink;
 use App\Models\User;
 use App\Models\Narrator;
 use App\Models\Audiobook;
@@ -91,13 +92,231 @@ class HomeController extends Controller
         $author_id = Book::where('books.id', $id)->pluck('book_author_id');
         $other_books = Book::where('book_author_id', $author_id[0])->paginate(2);
         $audiobook = Audiobook::with('narrators')->where('book_id', $id)->get();
+        $narrator_selection = Narrator::get();
 
         return view('book_details')
              ->with('book', $book)
              ->with('book_links', $book_links)
              ->with('other_books', $other_books)
-             ->with('audiobook', $audiobook);  
+             ->with('audiobook', $audiobook)
+             ->with('narrator_selection', $narrator_selection);  
     }
+
+    public function add_book_link(Request $request){
+
+        $this->validate($request, [
+            'platform' => 'required',
+            'book_link' => 'required',
+			'book_id' => 'required'
+          ]);
+		  
+		  //Get author id
+		  $id = $request->input('book_id');
+		  $aid = Book::where('id', $id)->pluck('book_author_id');
+            
+            //Create new entry into Book Links
+            try{
+                $app = new Link;
+                $app->user_id = auth()->user()->id;
+                $app->author_id = $aid[0];
+                $app->book_id = $id;
+                $app->platform = $request->input('platform');
+                $app->link_title = 'Buy Now';
+                $app->book_link = $request->input('book_link');
+                $app->save();
+    
+            } catch (\Illuminate\Database\QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('error', 'A Book Link has already been created with these settings.');
+                }
+            }
+                
+                return back()->with('success', 'A new Book Link has been successfully created. Thank you!');
+    }
+
+	public function delete_book_link(Request $request){
+        //Validate the form
+        $this->validate($request, [
+            'id' => 'required'
+        ]);
+        
+        $id = $request->input('id');	
+    
+        if($id > 0){			
+            $app = Link::find($id);
+            $app->delete();
+        }
+    
+    return back()->with('success', 'Book Purchase Link Successfully Deleted');	
+    
+}
+
+// ====================  Audio Previews, Author Other links, Narrator Links ===============================================
+
+public function add_audio_preview(Request $request){
+        
+    $this->validate($request, [
+        'narrator_id' => 'required',
+        'audio_link' => 'required',
+        'book_id' => 'required'
+      ]);
+      
+      //Get vars from form data
+      $nid = $request->input('narrator_id');
+      $aud = $request->input('audio_link');
+      $id = $request->input('book_id');
+
+
+      $book_info = Book::where('id', $id)->get();
+      if(count($book_info) > 0){
+          foreach($book_info as $b){
+              $title = $b->title;
+              $thumb = $b->c_image;
+              $author_id = $b->book_author_id;
+          }
+      }
+      
+    //Handle File Upload
+    if($request->hasFile('audio_link')){
+
+        //Get original filename
+        $filenameWithExt = $request->file('audio_link')->getClientOriginalName();
+        //Get just the filename
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        //Get Just filename extension
+        $extension = $request->file('audio_link')->getClientOriginalExtension();
+        //Concatenate filename with date / time to make it unique
+        $fileNameToStore = str_replace(" ","_",$filename . '_' . time() . '.' . $extension);
+        //Upload Audio File
+        $audiolink = $request->file('audio_link');
+        $audiolink->move('bookaudio', $fileNameToStore);	
+}
+        
+        //Create new entry into Book Links
+        try{
+            $app = new Audiobook;
+            $app->book_id = $id;
+            $app->title = $title;
+            $app->thumb = $thumb;
+            $app->author_id = $author_id;
+            $app->narrator_id = $request->input('narrator_id');
+            $app->audio_link = 'bookaudio/'.$fileNameToStore;
+            $app->save();
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == 1062){
+                return back()->with('error', 'An Audiobook Preview has already been created with these settings.');
+            }
+        } 
+            return back()->with('success', 'A new Audiobook Preview has been successfully created. Thank you!');
+
+  }	
+
+  public function createAuthorLink(Request $request){
+    
+    $this->validate($request, [
+        'platform' => 'required',
+        'link_title' => 'required',
+        'link_url' => 'required',
+        'author_id' => 'required'
+      ]);
+
+        
+        //Create new entry into Book Links
+        try{
+            
+            $app = new Olink;
+            $app->user_id = auth()->user()->id;
+            $app->author_id = $request->input('author_id');
+            $app->narrator_id = '0';
+            $app->platform = $request->input('platform');
+            $app->link_title = $request->input('link_title');
+            $app->other_link = $request->input('link_url');
+            $app->save();
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == 1062){
+                return back()->with('error', 'An Author Link has already been created with these settings.');
+            }
+        }
+            
+            return back()->with('success', 'A new Author Link has been successfully created. Thank you!');
+
+  }		
+
+
+public function authorLinkDestroy(Request $request){
+        //Validate the form
+        $this->validate($request, [
+            'id' => 'required'
+        ]);
+        
+        $id = $request->input('id');	
+    
+        if($id > 0){			
+            $app = Olink::find($id);
+            $app->delete();
+        }
+    
+    return back()->with('success', 'Author Link Successfully Deleted');	
+    
+}	
+
+
+  public function createNarratorLink(Request $request){
+    
+    $this->validate($request, [
+        'platform' => 'required',
+        'link_title' => 'required',
+        'link_url' => 'required',
+        'narrator_id' => 'required'
+      ]);
+
+        
+        //Create new entry into Book Links
+        try{
+            
+            $app = new Nlink;
+            $app->user_id = auth()->user()->id;
+            $app->narrator_id = $request->input('narrator_id');
+            $app->platform = $request->input('platform');
+            $app->link_title = $request->input('link_title');
+            $app->link = $request->input('link_url');
+            $app->save();
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == 1062){
+                return back()->with('error', 'A Narrator Link has already been created with these settings.');
+            }
+        }
+            
+            return back()->with('success', 'A new Narrator Link has been successfully created. Thank you!');
+
+  }		
+    
+
+public function narratorLinkDestroy(Request $request){
+        //Validate the form
+        $this->validate($request, [
+            'id' => 'required'
+        ]);
+        
+        $id = $request->input('id');	
+    
+        if($id > 0){			
+            $app = Nlink::find($id);
+            $app->delete();
+        }
+    
+    return back()->with('success', 'Narrator Link Successfully Deleted');	
+    
+}		
+
+// ===================================================================================
 
     public function my_books() {
         $id  = auth()->user()->id;
@@ -498,8 +717,7 @@ class HomeController extends Controller
         
         $audiobook = Audiobook::where('author_id', $author_id[0])->get();
         $other_links = Olink::where('author_id', $author_id[0])->orderby('platform', 'asc')->get();
-  
-                      
+                 
         return view('ind_author')
                   ->with('books', $books)
                   ->with('author', $author)
@@ -699,17 +917,13 @@ class HomeController extends Controller
 // ==============================================  NARRATOR ADMIN PAGES ========================================
     public function narrator($id){
         $narrator = Narrator::with('nlinks')->with('audiobooks')->where('narrator_id', $id)->get();
-        $aid = Audiobook::where('narrator_id', $id)->get('author_id');
-        if(count($aid)> 0){
-            foreach($aid as $a){
-                $authors = Author::where('author_id', $a->author_id)->get();
-            }
-        } else {
-            $authors = [];
-        }
-        // return $narrator;
+        //Get Authors where collaborations exist between author and narrator
+        $author_collabs = Audiobook::where('audio_snippets.narrator_id', $id)
+                            ->leftjoin('authors', 'audio_snippets.author_id' , '=', 'authors.author_id')
+                            ->get();
+            //return $narrator;
         
-        return view('mynarrator')->with('narrator', $narrator)->with('authors', $authors);
+        return view('mynarrator')->with('narrator', $narrator)->with('author_collabs', $author_collabs);
     }
     public function edit_narrator($id){
         $narrator_check = Narrator::where('user_id', auth()->user()->id)->get();
@@ -1174,36 +1388,30 @@ public function myAccount()
 
 public function all_narrators()
 {
-    $narrators = Narrator::orderby('name','asc')->get();
+    $narrators = Narrator::where('narrator_id', '!=', '0')->orderby('name','asc')->get();
     return view('all_narrators')->with('narrators', $narrators);
 }
 
-public function ind_narrator($id)
+public function show_narrator($id)
 {
-
     $books = Book::orderby('id', 'asc')->get();
-    $narrator = Narrator::orderby('id', 'asc')->where('id', $id)->get();
+    $narrator = Narrator::with('nlinks')->with('audiobooks')->where('narrator_id', $id)->get();  
     $narrator_links = Nlink::where('narrator_id', $id)->get();
-    $audiobook = Audiobook::where('narrator_id', $id)->get();
-    $author = Audiobook::where('narrator_id', $id)->pluck('author_id');
-    if(count($author)>0){
-    $author_details = Author::where('id', $author[0])->get();
-    } else {
-        $author_details = '';
-    }
-    $author_ids = DB::table('audio_snippets')
-    ->select('author_id')
-    ->groupBy('author_id')
-    ->where('narrator_id', $id)
-    ->get();
+    
+    //Get Authors where collaborations exist between author and narrator
+    $author_collabs = Audiobook::where('audio_snippets.narrator_id', $id)
+                        ->leftjoin('authors', 'audio_snippets.author_id' , '=', 'authors.author_id')
+                        ->get();
     return view('ind_narrator')
               ->with('books', $books)
               ->with('narrator', $narrator)
               ->with('narrator_links', $narrator_links)
-              ->with('audiobook', $audiobook)
-              ->with('author_details', $author_details)
-              ->with('author_ids', $author_ids);
+              ->with('author_collabs', $author_collabs);
 }
 
+
+    // function getNarratorName($id) {
+    //     return \DB::table('narrators')->where('narrator_id', $id)->first()->name;
+    // }
 
 }

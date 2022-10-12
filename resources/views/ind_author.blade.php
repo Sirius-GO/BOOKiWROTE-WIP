@@ -5,9 +5,10 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
 @section('content')
 
 <h1 class="m-4">Author Page</h1>
-<div class="container">
+<div class="container p-4 bg-light">
 <div class="row">
-    
+@if(request('id') != 0)
+
 @if(count($author)>0)
     @foreach($author as $atr)
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -87,7 +88,7 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
                     @endif
                 </div>
                 <br>
-            </span>
+            </span>                
         @endforeach
 
 </div>
@@ -152,10 +153,14 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
                                 </script>
                                 @if(count($author_details)>0)
                                 @foreach($author_details as $athr)
-                                <br>
-                                <h6>Written By {{$athr->pen_name}}</h6>
-                                        <h6>Narrated By <a href="/narrator_page/{{$as->narrator_id}}">#</a></h6>
-                                    @endforeach
+                                    <br>
+                                    <h6>Written By {{$athr->pen_name}}</h6>       
+                                @endforeach
+                                @endif
+                                    @if($as->narrator_id > 0)
+                                    <h6>Narrated By <a href="/ind_narrator/{{$as->narrator_id}}">{{\App\Models\Narrator::findOrFail($as->narrator_id)->name}}</a></h6> 
+                                    @else 
+                                    <h6>Narrated By - {{\App\Models\Narrator::findOrFail($as->narrator_id)->name}}</h6> 
                                     @endif
                                 </div>
                             </div>
@@ -172,7 +177,16 @@ session()->put('uri', $_SERVER['REQUEST_URI']);
 
 </div>
 </div>
-
+@else 
+<div class="container">
+    <br>
+    <div class="card p-4">
+        No Author Page Found
+    </div>
+</div>
+</div>
+@endif
+<br><br>
 
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

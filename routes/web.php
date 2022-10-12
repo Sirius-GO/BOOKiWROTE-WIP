@@ -84,12 +84,8 @@ Route::get('/admin/edit_author/{id}', [App\Http\Controllers\HomeController::clas
 Route::post('/admin/update_author/{id}', [App\Http\Controllers\HomeController::class, 'update_author'])->name('update.author');
 
 //Book Purchase Links
-Route::post('/admin/addbooklink', [App\Http\Controllers\HomeController::class, 'add_book_link'])->name('booklink.create');
-Route::post('/admin/addbooklink/{id}', [App\Http\Controllers\HomeController::class, 'edit_book_link'])->name('booklink.edit');
+Route::post('/addbooklink', [App\Http\Controllers\HomeController::class, 'add_book_link'])->name('booklink.create');
 Route::post('/admin/deletebooklink', [App\Http\Controllers\HomeController::class, 'delete_book_link'])->name('booklink.delete');
-
-//Audio Previews
-Route::post('/admin/addaudiopreview', [App\Http\Controllers\HomeController::class, 'add_audio_preview'])->name('audiopreview.create');
 
 //Account settings
 Route::get('/admin/account', [App\Http\Controllers\HomeController::class, 'myAccount']);
@@ -106,5 +102,17 @@ Route::post('/admin/add_narrator', [App\Http\Controllers\HomeController::class, 
 Route::get('/admin/edit_narrator/{id}', [App\Http\Controllers\HomeController::class, 'edit_narrator'])->name('edit.narrator');
 Route::post('/admin/update_narrator/{id}', [App\Http\Controllers\HomeController::class, 'update_narrator'])->name('update.narrator');
 
+//Narrator Links
 Route::post('/addnarratorlink', [App\Http\Controllers\HomeController::class, 'add_narrator_link'])->name('narratorlink.create');
+Route::post('/editnarratorlink', [App\Http\Controllers\HomeController::class, 'edit_narrator_link'])->name('narratorlink.edit');
 Route::delete('/narrator_delete', [App\Http\Controllers\HomeController::class, 'narrator_delete'])->name('narrator.delete');
+
+//Author Other Links
+Route::post('olink_create', ['App\Http\Controllers\HomeController@create_author_link'])->name('authorlink.create');
+Route::post('/olink_edit', ['App\Http\Controllers\HomeController@edit_author_link'])->name('authorlink.edit');
+Route::delete('/olink_delete', ['App\Http\Controllers\HomeController@delete_author_link'])->name('authorlink.delete');
+
+//Audio Previews
+Route::post('/admin/addaudiopreview', [App\Http\Controllers\HomeController::class, 'add_audio_preview'])->name('audiopreview.create');
+Route::post('edit_audiobook_preview/{id}', [App\Http\Controllers\HomeController::class, 'editAudiobookPreview'])->name('audiopreview.edit');
+Route::get('delete_audiobook_preview/{id}', [App\Http\Controllers\HomeController::class, 'deleteAudiobookPreview'])->name('audiopreview.delete');

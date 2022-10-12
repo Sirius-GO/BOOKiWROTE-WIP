@@ -11,7 +11,7 @@
         <div class="col-xs-12 col-md-4 col-lg-3 d-flex justify-content-center">  
             <div class="card" style="height: 490px; width: 270px; margin: 10px;">  
                 <div class="card-top-img">
-                <a href="/ind_narrator/{{$n->user_id}}">
+                <a href="/ind_narrator/{{$n->narrator_id}}">
                     <img src="{{asset($n->image)}}" alt="{{$n->name}}" title="{{$n->name}}" class="top_img" style="height: 350px; border-bottom: 1px #ddd solid;">
                 </a>
                 </div>
@@ -19,7 +19,7 @@
                     <small><b>Name: </b></small><p>{{$n->name}}</p>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                    <a href="/ind_narrator/{{$n->user_id}}" class="btn btn-info btn-sm">
+                    <a href="/ind_narrator/{{$n->narrator_id}}" class="btn btn-info btn-sm">
                         View My Narrator Page 
                     </a>
                 </div>

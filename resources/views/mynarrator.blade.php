@@ -4,8 +4,9 @@
 <h1 class="m-4">Narrator Page</h1>
 <div class="container">  
 <div class="row">
-@if(count($narrator)>0)
+@if(count($narrator)>0 && request('id') != 0)
 @foreach($narrator as $nr)
+
 	<?php $nid = $nr->user_id; $nida = $nr->narrator_id; ?>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titlebox">
         <small>Narrator Name:</small>
@@ -32,6 +33,10 @@
 			</a><br>   
 		@endif
 		@endif
+
+
+</div>
+    @if($nida > 0)
 		<!-- List of Links Here -->
         @foreach ($nr->nlinks as $nl)
             <br>
@@ -133,34 +138,32 @@
                             ct.innerHTML = Math.round(music.currentTime) + ' / ' + Math.round(dur);
                         }
                     </script>
-                    @if(count($authors)>0)
-                    @foreach($authors as $athr)
+
                     <br>
-                    <h6>Written By <a href="/author_page/{{$athr->id}}" style="color: #1b95cd;">{{$athr->pen_name}}</a></h6>
-                    @endforeach
-                    @endif
+                    <h6>Written By <a href="/author_page/{{$as->author_id}}" style="color: #1b95cd;">{{\App\Models\Author::findOrFail($as->author_id)->pen_name}}</a></h6>
+
                 </div>
                 
             </div>
             <br><hr>
     @endforeach
 
-    </div>    
-    @if(count($authors)>0)
+    </div>   
+    @if(count($author_collabs)>0)
     <h2 style="margin-left: 15px;">My Author Collaborations</h2><br>                    
             <div class="boxes_pen" style="width: 98%; margin: 1%;"> 
                 <div class="container">
                     <div class="row">
-                        @foreach($authors as $ns)                    
+                        @foreach($author_collabs->unique('author_id') as $ns)                    
                             <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-3">  
                                 <img src="{{asset($ns->image)}}" height="100px;" style="border: solid 1px #333;"> 
                                 <div class="boxes_pen"><small>Author Name:</small><h6>{{$ns->pen_name}}</h6></div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-9">           
-                                <div class="boxesa" style="text-align: left;"><small>Bio:</small><h6><?php echo substr($ns->bio, 0, 250); ?>......
-                                    <a href="/author_page/{{$ns->id}}" style="color: #1b95cd;"> Read More </a></h6></div>
-                                <a href="/author_page/{{$ns->id}}" class="btn btn-info btn-sm" style="margin: 5px 10px 0px 10px;">
-                                        View Author's Page 
+                                <div class="card"><small>Bio:</small><h6><?php echo substr($ns->bio, 0, 250); ?>......
+                                    <a href="/ind_author/{{$ns->author_id}}" style="color: #1b95cd;"> Read More </a></h6></div>
+                                <a href="/ind_author/{{$ns->author_id}}" class="btn btn-info btn-sm mt-2">
+                                    View Authors Page 
                                 </a>
                             </div>
                         @endforeach
@@ -173,7 +176,7 @@
 
         <br><br> <!-- END OF MAIN DIV -->
 
-
+@endif
 @endforeach
 
 @else 
