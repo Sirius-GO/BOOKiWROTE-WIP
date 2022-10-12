@@ -700,7 +700,7 @@ public function narratorLinkDestroy(Request $request){
 
     public function all_authors()
     {
-       $authors = Author::orderby('pen_name','asc')->get();
+       $authors = Author::where('author_id', '!=', '0')->orderby('pen_name','asc')->get();
 
         return view('all_authors')->with('authors', $authors);
     }
