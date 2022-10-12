@@ -3,7 +3,7 @@
 
     <h1 class="m-4">Edit My Narrator Page</h1>
 
-@if(count($narrator)>0)
+@if(count($narrator)>0 && request('id') != false)
 @foreach($narrator as $n)
 <div class="container">    
     <div class="boxes_form">
