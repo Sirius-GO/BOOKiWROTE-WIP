@@ -93,7 +93,7 @@ $(document).ready(function(){
                         <div class="text-center">
                             <button class="bk-bookback">Blurb</button>
                             <button class="bk-bookview">Preview</button>
-                            <a href="book_details/{{$book->id}}"><button class="bk-view">More</button></a>
+                            <a href="/book_details/{{$book->id}}"><button class="bk-view">More</button></a>
                         </div>
                         <h3>
                             <span>{{$book->pen_name}} - <b class="price">from {{$book->pformat}}{{$book->price}}</b></span>
