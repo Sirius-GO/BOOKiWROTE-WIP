@@ -1,6 +1,8 @@
 @extends('layouts.app')
 <?php
-session()->put('uri', $_SERVER['REQUEST_URI']);
+if(isset($_SERVER['REQUEST_URI'])){
+    session()->put('uri', $_SERVER['REQUEST_URI']);
+}
 ?>
 
 @section('content')

@@ -1,7 +1,10 @@
 @extends('layouts.app2')
 <?php
-session()->put('uri', $_SERVER['REQUEST_URI']);
+if(isset($_SERVER['REQUEST_URI'])){
+    session()->put('uri', $_SERVER['REQUEST_URI']);
+}
 ?>
+
 @section('content')
 
 <h1 class="m-4">Author Page</h1>

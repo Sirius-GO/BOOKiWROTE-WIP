@@ -1,6 +1,9 @@
 <?php
-session()->put('uri', $_SERVER['REQUEST_URI']);
+if(isset($_SERVER['REQUEST_URI'])){
+    session()->put('uri', $_SERVER['REQUEST_URI']);
+}
 ?>
+
 
 <x-admin-master>
 

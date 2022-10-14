@@ -1,7 +1,10 @@
 @extends('layouts.app2')
 <?php
-session()->put('uri', $_SERVER['REQUEST_URI']);
+if(isset($_SERVER['REQUEST_URI'])){
+    session()->put('uri', $_SERVER['REQUEST_URI']);
+}
 ?>
+
 @section('content')
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-8 mt-4">
